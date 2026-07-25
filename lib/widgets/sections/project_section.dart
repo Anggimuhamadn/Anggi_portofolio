@@ -1,0 +1,682 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:visibility_detector/visibility_detector.dart';
+import 'dart:html' as html;
+
+class ProjectSection extends StatefulWidget {
+  const ProjectSection({super.key});
+
+  @override
+  State<ProjectSection> createState() => _ProjectSectionState();
+}
+
+class _ProjectSectionState extends State<ProjectSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animController;
+  bool _hasAnimated = false;
+
+  final List<Map<String, dynamic>> projects = [
+    {
+      "title": "Security Logbook & Patrol Management System",
+      "desc": "Aplikasi mobile digitalisasi operasional keamanan fisik. Mengintegrasikan pencatatan logbook real-time, pelaporan insiden presisi, dan manajemen data akses terpusat.",
+      "imageUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600",
+      "tags": ["Mobile Dev", "Data Management", "Process Automation"],
+      "githubUrl": "https://github.com/AnggiM",
+      "liveUrl": "https://github.com/AnggiM",
+    },
+    {
+      "title": "SPK Perbaikan Fasilitas (Weighted Product)",
+      "desc": "Sistem Pendukung Keputusan berbasis web/mobile untuk menentukan prioritas perbaikan fasilitas menggunakan metode Weighted Product (WP).",
+      "imageUrl": "https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=600",
+      "tags": ["Decision Support System", "Algorithm", "UI/UX"],
+      "githubUrl": "https://github.com/AnggiM",
+      "liveUrl": "https://github.com/AnggiM",
+    },
+    {
+      "title": "E-Commerce Cinematic App",
+      "desc": "Aplikasi toko online premium dengan state management Bloc, clean architecture, dan animasi micro-interactions yang mulus.",
+      "imageUrl": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600",
+      "tags": ["Flutter", "Bloc", "Node.js"],
+      "githubUrl": "https://github.com/AnggiM",
+      "liveUrl": "https://github.com/AnggiM",
+    },
+    {
+      "title": "Cinematic Movie Streaming",
+      "desc": "Streaming platform client dengan integrasi TMDB API, custom video player controls, serta sistem caching yang optimal.",
+      "imageUrl": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600",
+      "tags": ["Flutter", "Riverpod", "REST API"],
+      "githubUrl": "https://github.com/AnggiM",
+      "liveUrl": "https://github.com/AnggiM",
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2200),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isDesktop = screenWidth > 950;
+
+    return VisibilityDetector(
+      key: const Key('project-section-visibility-key'),
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction > 0.12 && !_hasAnimated) {
+          _hasAnimated = true;
+          _animController.forward();
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        color: const Color(0xff090D16),
+        child: Stack(
+          children: [
+            /// BACKGROUND AURA GLOW CYAN NEON
+            Positioned(
+              top: 100,
+              right: -100,
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 140, sigmaY: 140),
+                child: Container(
+                  width: 450,
+                  height: 450,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        const Color(0xff00D2FF).withOpacity(0.12),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isDesktop ? 80 : 24,
+                vertical: 120,
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1150),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// MINI BADGE DENGAN ANIMASI FADE-SLIDE PERTAMA
+                      _buildAnimatedChild(
+                        start: 0.0,
+                        end: 0.3,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xff00D2FF).withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: const Color(0xff00D2FF).withOpacity(0.25),
+                              width: 1.2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.grid_view_rounded,
+                                  color: Color(0xff00D2FF), size: 14),
+                              const SizedBox(width: 8),
+                              Text(
+                                "BENTO SHOWCASE",
+                                style: GoogleFonts.inter(
+                                  color: const Color(0xff00D2FF),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 2.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      /// HEADLINE TITLE
+                      _buildAnimatedChild(
+                        start: 0.1,
+                        end: 0.4,
+                        child: Text(
+                          "Proyek Pilihan Eksklusif.",
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: isDesktop ? 36 : 26,
+                            fontWeight: FontWeight.w900,
+                            height: 1.2,
+                            letterSpacing: -0.8,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 50),
+
+                      /// =========================================================================
+                      /// BENTO GRID DENGAN ANIMASI SINEMATIK SATU-PER-SATU
+                      /// =========================================================================
+                      isDesktop
+                          ? Column(
+                        children: [
+                          // BARIS 1: Featured Card (Proyek 0) -> Muncul Pertama
+                          _buildAnimatedChild(
+                            start: 0.2,
+                            end: 0.6,
+                            child: _GlassBentoCard(
+                              project: projects[0],
+                              isFeatured: true,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+
+                          // BARIS 2: Proyek 1, 2, dan 3 (Staggered Animation berurutan)
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.35,
+                                  end: 0.75,
+                                  child: _GlassBentoCard(
+                                    project: projects[1],
+                                    isFeatured: false,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 24),
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.50,
+                                  end: 0.90,
+                                  child: _GlassBentoCard(
+                                    project: projects[2],
+                                    isFeatured: false,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 24),
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.65,
+                                  end: 1.0,
+                                  child: _GlassBentoCard(
+                                    project: projects[3],
+                                    isFeatured: false,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                          : ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: projects.length,
+                        separatorBuilder: (_, __) =>
+                        const SizedBox(height: 24),
+                        itemBuilder: (context, index) {
+                          final double start = (0.2 + (index * 0.15)).clamp(0.0, 0.7);
+                          final double end = (start + 0.35).clamp(0.0, 1.0);
+
+                          return _buildAnimatedChild(
+                            start: start,
+                            end: end,
+                            child: _GlassBentoCard(
+                              project: projects[index],
+                              isFeatured: false,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // WIDGET HELPER ANIMASI SINEMATIK (SLIDE UP + FADE + SCALE SOFT)
+  Widget _buildAnimatedChild({
+    required double start,
+    required double end,
+    required Widget child,
+  }) {
+    final Animation<double> fadeAnim = CurvedAnimation(
+      parent: _animController,
+      curve: Interval(start, end, curve: Curves.easeOut),
+    );
+
+    final Animation<Offset> slideAnim = Tween<Offset>(
+      begin: const Offset(0.0, 0.20),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: Interval(start, end, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    final Animation<double> scaleAnim = Tween<double>(
+      begin: 0.92,
+      end: 1.0,
+    ).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: Interval(start, end, curve: Curves.easeOutBack),
+      ),
+    );
+
+    return AnimatedBuilder(
+      animation: _animController,
+      builder: (context, childWidget) {
+        return FadeTransition(
+          opacity: fadeAnim,
+          child: SlideTransition(
+            position: slideAnim,
+            child: ScaleTransition(
+              scale: scaleAnim,
+              child: childWidget,
+            ),
+          ),
+        );
+      },
+      child: child,
+    );
+  }
+}
+
+// =========================================================================
+// WIDGET COMPONENT: GLASSMORPHISM BENTO CARD
+// =========================================================================
+class _GlassBentoCard extends StatefulWidget {
+  final Map<String, dynamic> project;
+  final bool isFeatured;
+
+  const _GlassBentoCard({
+    required this.project,
+    required this.isFeatured,
+  });
+
+  @override
+  State<_GlassBentoCard> createState() => _GlassBentoCardState();
+}
+
+class _GlassBentoCardState extends State<_GlassBentoCard> {
+  bool _isHovered = false;
+
+  void _openLink(String url) {
+    html.AnchorElement anchorElement = html.AnchorElement(href: url);
+    anchorElement.target = "_blank";
+    anchorElement.click();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+            padding: EdgeInsets.all(widget.isFeatured ? 28 : 22),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: const Color(0xff111827)
+                  .withOpacity(_isHovered ? 0.45 : 0.20),
+              border: Border.all(
+                color: _isHovered
+                    ? const Color(0xff00D2FF).withOpacity(0.5)
+                    : Colors.white.withOpacity(0.05),
+                width: 1.2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xff00D2FF)
+                      .withOpacity(_isHovered ? 0.08 : 0.0),
+                  blurRadius: 30,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: widget.isFeatured
+                ? _buildFeaturedContent()
+                : _buildStandardContent(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // CONTENT LAYOUT FOR FEATURED HERO CARD
+  Widget _buildFeaturedContent() {
+    return Row(
+      children: [
+        // GAMBAR FEATURED
+        Expanded(
+          flex: 6,
+          child: AspectRatio(
+            aspectRatio: 1.7,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: AnimatedScale(
+                      scale: _isHovered ? 1.05 : 1.0,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeOutCubic,
+                      child: Image.network(
+                        widget.project["imageUrl"],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            const Color(0xff090D16).withOpacity(0.5),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 32),
+
+        // DESKRIPSI & INFORMASI FEATURED
+        Expanded(
+          flex: 6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: (widget.project["tags"] as List<String>)
+                    .map((tag) => _buildGlassTag(tag))
+                    .toList(),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                widget.project["title"],
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                widget.project["desc"],
+                style: GoogleFonts.inter(
+                  color: const Color(0xff94A3B8),
+                  fontSize: 15,
+                  height: 1.6,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  _buildGlassActionButton(
+                    icon: Icons.code_rounded,
+                    label: "Code",
+                    onTap: () => _openLink(widget.project["githubUrl"]),
+                  ),
+                  const SizedBox(width: 12),
+                  _buildGlassActionButton(
+                    icon: Icons.arrow_outward_rounded,
+                    label: "Demo",
+                    onTap: () => _openLink(widget.project["liveUrl"]),
+                    isPrimary: true,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // CONTENT LAYOUT FOR STANDARD CARD
+  Widget _buildStandardContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // GAMBAR STANDARD
+        AspectRatio(
+          aspectRatio: 1.6,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: AnimatedScale(
+                    scale: _isHovered ? 1.05 : 1.0,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOutCubic,
+                    child: Image.network(
+                      widget.project["imageUrl"],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          const Color(0xff090D16).withOpacity(0.6),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 18),
+
+        // TAGS
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: (widget.project["tags"] as List<String>)
+              .map((tag) => _buildGlassTag(tag))
+              .toList(),
+        ),
+        const SizedBox(height: 14),
+
+        // TITLE
+        Text(
+          widget.project["title"],
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.3,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        // DESC
+        Text(
+          widget.project["desc"],
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.inter(
+            color: const Color(0xff94A3B8),
+            fontSize: 14,
+            height: 1.55,
+          ),
+        ),
+        const SizedBox(height: 22),
+
+        // ACTION BUTTONS
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildGlassIconButton(
+              icon: Icons.code_rounded,
+              tooltip: "Source Code",
+              onTap: () => _openLink(widget.project["githubUrl"]),
+            ),
+            _buildGlassIconButton(
+              icon: Icons.arrow_outward_rounded,
+              tooltip: "Live Demo",
+              onTap: () => _openLink(widget.project["liveUrl"]),
+              isPrimary: true,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // WIDGET TAG CHIP FROSTED
+  Widget _buildGlassTag(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      decoration: BoxDecoration(
+        color: const Color(0xff00D2FF).withOpacity(0.08),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xff00D2FF).withOpacity(0.25)),
+      ),
+      child: Text(
+        text,
+        style: GoogleFonts.inter(
+          color: const Color(0xff00D2FF),
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  // WIDGET ACTION BUTTON DENGAN TEKS
+  Widget _buildGlassActionButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    bool isPrimary = false,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: isPrimary
+              ? const Color(0xff00D2FF).withOpacity(0.15)
+              : const Color(0xff1E293B).withOpacity(0.4),
+          border: Border.all(
+            color: isPrimary
+                ? const Color(0xff00D2FF)
+                : Colors.white.withOpacity(0.08),
+            width: 1.2,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 17,
+              color: isPrimary ? const Color(0xff00D2FF) : Colors.white,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: isPrimary ? const Color(0xff00D2FF) : Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // WIDGET ACTION ICON BUTTON
+  Widget _buildGlassIconButton({
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onTap,
+    bool isPrimary = false,
+  }) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isPrimary
+                ? const Color(0xff00D2FF).withOpacity(0.15)
+                : const Color(0xff1E293B).withOpacity(0.4),
+            border: Border.all(
+              color: isPrimary
+                  ? const Color(0xff00D2FF)
+                  : Colors.white.withOpacity(0.08),
+              width: 1.2,
+            ),
+          ),
+          child: Center(
+            child: Icon(
+              icon,
+              size: 19,
+              color: isPrimary ? const Color(0xff00D2FF) : Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
