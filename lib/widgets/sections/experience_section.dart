@@ -25,13 +25,13 @@ class ExperienceSection extends StatelessWidget {
   static const List<ExperienceData> _listExperience = [
     ExperienceData(
 
-        role: "Mobile Developer — Security Data Management",
-        company: "Internal Operational System Project",
-        period: "2024 - 2025",
-        description:
-        "Merancang dan mendesain aplikasi mobile untuk digitalisasi manajemen data operasional security. Mengubah pencatatan logbook manual menjadi sistem digital terstruktur, mempercepat pelaporan insiden, dan meningkatkan akurasi rekap data lapangan.",
-        tags: ["Mobile Development", "Data Management", "Process Automation", "UI/UX"],
-      ),
+      role: "Mobile Developer — Security Data Management",
+      company: "Internal Operational System Project",
+      period: "2024 - 2025",
+      description:
+      "Merancang dan mendesain aplikasi mobile untuk digitalisasi manajemen data operasional security. Mengubah pencatatan logbook manual menjadi sistem digital terstruktur, mempercepat pelaporan insiden, dan meningkatkan akurasi rekap data lapangan.",
+      tags: ["Mobile Development", "Data Management", "Process Automation", "UI/UX"],
+    ),
     ExperienceData(
       role: "Operational Security Officer",
       company: "Professional Security Service",
