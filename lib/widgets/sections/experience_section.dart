@@ -24,7 +24,6 @@ class ExperienceSection extends StatelessWidget {
 
   static const List<ExperienceData> _listExperience = [
     ExperienceData(
-
       role: "Mobile Developer — Security Data Management",
       company: "Internal Operational System Project",
       period: "2024 - 2025",
@@ -48,7 +47,6 @@ class ExperienceSection extends StatelessWidget {
       "Mengembangkan Sistem Pendukung Keputusan (SPK) perbaikan fasilitas menggunakan metode Weighted Product (WP). Berfokus pada perancangan arsitektur aplikasi yang bersih, analisis data terstruktur, dan antarmuka pengguna yang intuitif.",
       tags: ["Informatics Engineering", "Decision Support System", "Clean Architecture", "UI/UX"],
     ),
-
   ];
 
   @override
@@ -61,7 +59,7 @@ class ExperienceSection extends StatelessWidget {
       color: const Color(0xff090D16),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 60 : 20,
-        vertical: 100,
+        vertical: 80,
       ),
       child: Center(
         child: ConstrainedBox(
@@ -99,20 +97,17 @@ class ExperienceSection extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height:20),
+              const SizedBox(height: 24),
 
               // TIMELINE LIST
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _listExperience.length,
-                itemBuilder: (context, index) {
+              Column(
+                children: List.generate(_listExperience.length, (index) {
                   return _FuturisticTimelineTile(
                     data: _listExperience[index],
                     isFirst: index == 0,
                     isLast: index == _listExperience.length - 1,
                   );
-                },
+                }),
               ),
             ],
           ),
@@ -147,273 +142,251 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // =========================================================================
-            // 1. STRUKTUR CYBER NODE & GLOWING LINE
-            // =========================================================================
-            SizedBox(
-              width: 32,
-              child: Column(
-                children: [
-                  Container(
-                    width: 2,
-                    height: 22,
-                    color: widget.isFirst
-                        ? Colors.transparent
-                        : const Color(0xff1E293B),
-                  ),
-
-                  // CYBER GLOWING NODE
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    width: _isHovered ? 18 : 14,
-                    height: _isHovered ? 18 : 14,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 1. TIMELINE NODE (KIRI)
+          SizedBox(
+            width: 24,
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: _isHovered ? 16 : 12,
+                  height: _isHovered ? 16 : 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _isHovered
+                        ? const Color(0xff00D2FF)
+                        : const Color(0xff090D16),
+                    border: Border.all(
                       color: _isHovered
                           ? const Color(0xff00D2FF)
-                          : const Color(0xff090D16),
-                      border: Border.all(
-                        color: _isHovered
-                            ? const Color(0xff00D2FF)
-                            : const Color(0xff334155),
-                        width: _isHovered ? 3.5 : 2,
-                      ),
-                      boxShadow: [
-                        if (_isHovered)
-                          BoxShadow(
-                            color: const Color(0xff00D2FF).withOpacity(0.9),
-                            blurRadius: 18,
-                            spreadRadius: 4,
-                          )
-                      ],
+                          : const Color(0xff334155),
+                      width: _isHovered ? 3 : 2,
                     ),
+                    boxShadow: [
+                      if (_isHovered)
+                        BoxShadow(
+                          color: const Color(0xff00D2FF).withOpacity(0.8),
+                          blurRadius: 12,
+                          spreadRadius: 2,
+                        )
+                    ],
                   ),
-
-                  // GARIS VERTIKAL DENGAN NEON GRADIENT PAS HOVER
-                  Expanded(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      width: _isHovered ? 2.5 : 2,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: widget.isLast
-                              ? [Colors.transparent, Colors.transparent]
-                              : (_isHovered
-                              ? [
-                            const Color(0xff00D2FF),
-                            const Color(0xff1E293B)
-                          ]
-                              : [
-                            const Color(0xff1E293B),
-                            const Color(0xff1E293B)
-                          ]),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(width: 24),
+          ),
+          const SizedBox(width: 16),
 
-            // =========================================================================
-            // 2. KARTU FUTURISTIK DENGAN SPOTLIGHT GLOW & HOVER SLIDE
-            // =========================================================================
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 28),
-                child: AnimatedSlide(
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeOutCubic,
-                  offset: _isHovered ? const Offset(0.012, 0) : Offset.zero,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeOutCubic,
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      color: _isHovered
-                          ? const Color(0xff111827).withOpacity(0.55)
-                          : const Color(0xff111827).withOpacity(0.18),
-                      border: Border.all(
-                        color: _isHovered
-                            ? const Color(0xff00D2FF).withOpacity(0.45)
-                            : Colors.white.withOpacity(0.04),
-                        width: 1.2,
+          // 2. KARTU ISI (KANAN)
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOutCubic,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: _isHovered
+                      ? const Color(0xff111827).withOpacity(0.55)
+                      : const Color(0xff111827).withOpacity(0.18),
+                  border: Border.all(
+                    color: _isHovered
+                        ? const Color(0xff00D2FF).withOpacity(0.45)
+                        : Colors.white.withOpacity(0.04),
+                    width: 1.2,
+                  ),
+                  boxShadow: [
+                    if (_isHovered)
+                      BoxShadow(
+                        color: const Color(0xff00D2FF).withOpacity(0.08),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
                       ),
-                      boxShadow: [
-                        if (_isHovered)
-                          BoxShadow(
-                            color: const Color(0xff00D2FF).withOpacity(0.08),
-                            blurRadius: 30,
-                            offset: const Offset(0, 10),
-                          ),
-                      ],
-                    ),
-                    child: Stack(
-                      children: [
-                        // SPOTLIGHT RADIAL GLOW DI CORNER PAS HOVER
-                        if (_isHovered)
-                          Positioned(
-                            top: -40,
-                            right: -40,
-                            child: Container(
-                              width: 130,
-                              height: 130,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: RadialGradient(
-                                  colors: [
-                                    const Color(0xff00D2FF).withOpacity(0.15),
-                                    Colors.transparent,
-                                  ],
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // RESPONSIVE HEADER
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        bool isMobile = constraints.maxWidth < 480;
+
+                        if (isMobile) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: const Color(0xff00D2FF)
+                                          .withOpacity(0.10),
+                                    ),
+                                    child: const Icon(
+                                      Icons.developer_board_rounded,
+                                      color: Color(0xff00D2FF),
+                                      size: 18,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff1E293B)
+                                          .withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      widget.data.period,
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xff94A3B8),
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                widget.data.role,
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ),
+                              const SizedBox(height: 2),
+                              Text(
+                                widget.data.company,
+                                style: GoogleFonts.inter(
+                                  color: const Color(0xff00D2FF),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
 
-                        // KONTEN UTAMA KARTU
-                        Column(
+                        return Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // CYBER BADGE ICON
-                                Container(
-                                  width: 44,
-                                  height: 44,
-                                  margin: const EdgeInsets.only(right: 16),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(14),
-                                    color: const Color(0xff00D2FF)
-                                        .withOpacity(_isHovered ? 0.12 : 0.05),
-                                    border: Border.all(
-                                      color: const Color(0xff00D2FF)
-                                          .withOpacity(_isHovered ? 0.35 : 0.15),
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.developer_board_rounded,
-                                    color: _isHovered
-                                        ? const Color(0xff00D2FF)
-                                        : const Color(0xff64748B),
-                                    size: 20,
-                                  ),
-                                ),
-
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.data.role,
-                                        style: GoogleFonts.inter(
-                                          color: Colors.white,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: -0.3,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        widget.data.company,
-                                        style: GoogleFonts.inter(
-                                          color: const Color(0xff00D2FF),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-
-                                // BADGE PERIODE
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xff1E293B)
-                                        .withOpacity(0.4),
-                                    borderRadius: BorderRadius.circular(100),
-                                    border: Border.all(
-                                      color: Colors.white.withOpacity(0.06),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    widget.data.period,
-                                    style: GoogleFonts.inter(
-                                      color: const Color(0xff94A3B8),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-
-                            // URAIAN DESKRIPSI
-                            Text(
-                              widget.data.description,
-                              style: GoogleFonts.inter(
-                                color: const Color(0xff94A3B8),
-                                fontSize: 14,
-                                height: 1.6,
+                            Container(
+                              width: 40,
+                              height: 40,
+                              margin: const EdgeInsets.only(right: 14),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: const Color(0xff00D2FF)
+                                    .withOpacity(0.10),
+                              ),
+                              child: const Icon(
+                                Icons.developer_board_rounded,
+                                color: Color(0xff00D2FF),
+                                size: 20,
                               ),
                             ),
-                            const SizedBox(height: 18),
-
-                            // TAG CHIPS CYBER
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: widget.data.tags.map((tag) {
-                                return Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 6),
-                                  decoration: BoxDecoration(
-                                    color: _isHovered
-                                        ? const Color(0xff00D2FF).withOpacity(0.08)
-                                        : const Color(0xff1E293B).withOpacity(0.25),
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: _isHovered
-                                          ? const Color(0xff00D2FF).withOpacity(0.3)
-                                          : Colors.white.withOpacity(0.04),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    tag,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.data.role,
                                     style: GoogleFonts.inter(
-                                      color: _isHovered
-                                          ? const Color(0xff00D2FF)
-                                          : const Color(0xffCBD5E1),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                );
-                              }).toList(),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    widget.data.company,
+                                    style: GoogleFonts.inter(
+                                      color: const Color(0xff00D2FF),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: const Color(0xff1E293B)
+                                    .withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                widget.data.period,
+                                style: GoogleFonts.inter(
+                                  color: const Color(0xff94A3B8),
+                                  fontSize: 11,
+                                ),
+                              ),
                             ),
                           ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  ),
+
+                    const SizedBox(height: 14),
+
+                    // DESKRIPSI
+                    Text(
+                      widget.data.description,
+                      style: GoogleFonts.inter(
+                        color: const Color(0xff94A3B8),
+                        fontSize: 13.5,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // TAGS
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: widget.data.tags.map((tag) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: const Color(0xff1E293B).withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.05),
+                            ),
+                          ),
+                          child: Text(
+                            tag,
+                            style: GoogleFonts.inter(
+                              color: const Color(0xffCBD5E1),
+                              fontSize: 11,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
