@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'core/theme/app_theme.dart';
 import 'pages/home/home_page.dart';
 
@@ -14,9 +13,9 @@ class PortfolioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Anggi Portfolio",
+      title: "Anggi Portofolio",
       theme: AppTheme.lightTheme,
-      home: const HomePage(),
+      home: const  HomePage(),
     );
   }
 }
