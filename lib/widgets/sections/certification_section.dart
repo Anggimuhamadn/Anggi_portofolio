@@ -16,7 +16,6 @@ class _CertificationSectionState extends State<CertificationSection>
   late AnimationController _animController;
   bool _hasAnimated = false;
 
-  // DATA LIST SERTIFIKAT (9 ITEM)
   final List<Map<String, String>> _certs = [
     {
       "title": "Introducton to Cybersecurity",
@@ -121,8 +120,10 @@ class _CertificationSectionState extends State<CertificationSection>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      constraints:
-                      const BoxConstraints(maxWidth: 800, maxHeight: 500),
+                      constraints: const BoxConstraints(
+                        maxWidth: 800,
+                        maxHeight: 500,
+                      ),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color(0xff00D2FF).withOpacity(0.4),
@@ -154,8 +155,11 @@ class _CertificationSectionState extends State<CertificationSection>
                 top: 10,
                 right: 10,
                 child: IconButton(
-                  icon: const Icon(Icons.close_rounded,
-                      color: Colors.white, size: 30),
+                  icon: const Icon(
+                    Icons.close_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -192,7 +196,6 @@ class _CertificationSectionState extends State<CertificationSection>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // HEADER & NAVIGATION BUTTONS
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -200,10 +203,11 @@ class _CertificationSectionState extends State<CertificationSection>
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // BADGE
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 6),
+                            horizontal: 14,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xff00D2FF).withOpacity(0.06),
                             borderRadius: BorderRadius.circular(20),
@@ -224,7 +228,6 @@ class _CertificationSectionState extends State<CertificationSection>
                         ),
                         const SizedBox(height: 16),
 
-                        // HEADLINE UTAMA (TAMBAHAN BIAR GA KOSONG)
                         Text(
                           "Sertifikasi & Lisensi Resmi.",
                           style: GoogleFonts.inter(
@@ -237,7 +240,6 @@ class _CertificationSectionState extends State<CertificationSection>
                       ],
                     ),
 
-                    // TOMBOL PANAH NEON SLIDER (DESKTOP)
                     if (isDesktop)
                       Row(
                         children: [
@@ -256,19 +258,18 @@ class _CertificationSectionState extends State<CertificationSection>
                 ),
                 const SizedBox(height: 36),
 
-                // GRIDVIEW 2 BARIS DENGAN STAGGERED ANIMATION
                 SizedBox(
                   height: 520,
                   child: GridView.builder(
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 0.92,
-                    ),
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                          childAspectRatio: 0.92,
+                        ),
                     itemCount: _certs.length,
                     itemBuilder: (context, index) {
                       final item = _certs[index];
@@ -281,27 +282,32 @@ class _CertificationSectionState extends State<CertificationSection>
                         curve: Interval(start, end, curve: Curves.easeOut),
                       );
 
-                      final Animation<Offset> slideAnim = Tween<Offset>(
-                        begin: const Offset(0.0, 0.15),
-                        end: Offset.zero,
-                      ).animate(
-                        CurvedAnimation(
-                          parent: _animController,
-                          curve:
-                          Interval(start, end, curve: Curves.easeOutCubic),
-                        ),
-                      );
+                      final Animation<Offset> slideAnim =
+                          Tween<Offset>(
+                            begin: const Offset(0.0, 0.15),
+                            end: Offset.zero,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: _animController,
+                              curve: Interval(
+                                start,
+                                end,
+                                curve: Curves.easeOutCubic,
+                              ),
+                            ),
+                          );
 
-                      final Animation<double> scaleAnim = Tween<double>(
-                        begin: 0.88,
-                        end: 1.0,
-                      ).animate(
-                        CurvedAnimation(
-                          parent: _animController,
-                          curve:
-                          Interval(start, end, curve: Curves.easeOutBack),
-                        ),
-                      );
+                      final Animation<double> scaleAnim =
+                          Tween<double>(begin: 0.88, end: 1.0).animate(
+                            CurvedAnimation(
+                              parent: _animController,
+                              curve: Interval(
+                                start,
+                                end,
+                                curve: Curves.easeOutBack,
+                              ),
+                            ),
+                          );
 
                       return AnimatedBuilder(
                         animation: _animController,
@@ -340,8 +346,7 @@ class _CertificationSectionState extends State<CertificationSection>
     );
   }
 
-  Widget _buildNavArrow(
-      {required IconData icon, required VoidCallback onTap}) {
+  Widget _buildNavArrow({required IconData icon, required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -358,7 +363,6 @@ class _CertificationSectionState extends State<CertificationSection>
   }
 }
 
-// COMPONENT CARD SERTIFIKAT GLASS
 class _CertGlassCard extends StatefulWidget {
   final String title;
   final String issuer;
@@ -393,8 +397,9 @@ class _CertGlassCardState extends State<_CertGlassCard> {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color:
-            const Color(0xff111827).withOpacity(_isHovered ? 0.45 : 0.20),
+            color: const Color(
+              0xff111827,
+            ).withOpacity(_isHovered ? 0.45 : 0.20),
             border: Border.all(
               color: _isHovered
                   ? const Color(0xff00D2FF).withOpacity(0.5)
@@ -418,8 +423,11 @@ class _CertGlassCardState extends State<_CertGlassCard> {
                             return Container(
                               color: const Color(0xff1E293B),
                               child: const Center(
-                                child: Icon(Icons.broken_image_rounded,
-                                    color: Colors.white24, size: 28),
+                                child: Icon(
+                                  Icons.broken_image_rounded,
+                                  color: Colors.white24,
+                                  size: 28,
+                                ),
                               ),
                             );
                           },
@@ -427,8 +435,9 @@ class _CertGlassCardState extends State<_CertGlassCard> {
                       ),
                       Positioned.fill(
                         child: Container(
-                          color:
-                          Colors.black.withOpacity(_isHovered ? 0.0 : 0.2),
+                          color: Colors.black.withOpacity(
+                            _isHovered ? 0.0 : 0.2,
+                          ),
                         ),
                       ),
                       Positioned(
@@ -440,10 +449,13 @@ class _CertGlassCardState extends State<_CertGlassCard> {
                             shape: BoxShape.circle,
                             color: const Color(0xff090D16).withOpacity(0.8),
                           ),
-                          child: const Icon(Icons.fullscreen_rounded,
-                              color: Color(0xff00D2FF), size: 16),
+                          child: const Icon(
+                            Icons.fullscreen_rounded,
+                            color: Color(0xff00D2FF),
+                            size: 16,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

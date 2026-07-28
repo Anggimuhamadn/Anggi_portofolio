@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-// === WIDGET KUSTOM TYPEWRITER TEXT (CEPETAN NGETIK & BISA DI-TRIGGER) ===
 class TypewriterText extends StatefulWidget {
   final String text;
   final TextStyle style;
@@ -71,7 +70,6 @@ class _TypewriterTextState extends State<TypewriterText> {
   }
 }
 
-// === WIDGET UTAMA: ABOUT SECTION (INTERACTIVE VISIBILITY REVEAL) ===
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
 
@@ -79,7 +77,8 @@ class AboutSection extends StatefulWidget {
   State<AboutSection> createState() => _AboutSectionState();
 }
 
-class _AboutSectionState extends State<AboutSection> with SingleTickerProviderStateMixin {
+class _AboutSectionState extends State<AboutSection>
+    with SingleTickerProviderStateMixin {
   bool _isPhotoHovered = false;
   bool _isVisible = false;
 
@@ -131,27 +130,26 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
             constraints: const BoxConstraints(maxWidth: 1200),
             child: isDesktop
                 ? Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(flex: 45, child: _buildInteractivePhotoLeft()),
-                const SizedBox(width: 80),
-                Expanded(flex: 55, child: _buildAboutTextRight()),
-              ],
-            )
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(flex: 45, child: _buildInteractivePhotoLeft()),
+                      const SizedBox(width: 80),
+                      Expanded(flex: 55, child: _buildAboutTextRight()),
+                    ],
+                  )
                 : Column(
-              children: [
-                _buildInteractivePhotoLeft(),
-                const SizedBox(height: 50),
-                _buildAboutTextRight(),
-              ],
-            ),
+                    children: [
+                      _buildInteractivePhotoLeft(),
+                      const SizedBox(height: 50),
+                      _buildAboutTextRight(),
+                    ],
+                  ),
           ),
         ),
       ),
     );
   }
 
-  // SISI KANAN: KONTEN TEKS & BADGE EMERALD
   Widget _buildAboutTextRight() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,11 +179,7 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
 
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [
-              Color(0xffF8FAFC),
-              Color(0xff00F5D4),
-              Color(0xff00D2FF),
-            ],
+            colors: [Color(0xffF8FAFC), Color(0xff00F5D4), Color(0xff00D2FF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ).createShader(bounds),
@@ -205,12 +199,13 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
 
         TypewriterText(
           startTrigger: _isVisible,
-          text: "Halo! Gua seorang Software Developer yang berfokus ngebantu startup, bisnis, "
+          text:
+              "Halo! Gua seorang Software Developer yang berfokus ngebantu startup, bisnis, "
               "dan enterprise buat nge-scale produk digital mereka. Gak cuma sekadar sistem "
               "yang jalan lancar, tapi juga didesain dengan UI/UX yang intuitif dan bikin user betah.\n\n"
               "Lu fokus ke visinya, gua yang beresin baris kodenya. Berawal dari rasa penasaran "
-    "gimana cara kerja teknologi di balik layar, sekarang gua fokus membangun arsitektur "
-    "clean-code yang scalable, aman, dan siap untuk tahap production.",
+              "gimana cara kerja teknologi di balik layar, sekarang gua fokus membangun arsitektur "
+              "clean-code yang scalable, aman, dan siap untuk tahap production.",
           style: const TextStyle(
             fontFamily: 'Inter',
             color: Color(0xff94A3B8),
@@ -221,8 +216,27 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
         ),
         const SizedBox(height: 32),
 
-        // WIDGET BORDER RGB ANIMATED ROTATION BADGE
-        const CyberRGBBadge(text: "TECH STACK"),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            color: const Color(0xff00F5D4).withOpacity(0.08),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: const Color(0xff00F5D4).withOpacity(0.35),
+              width: 1.2,
+            ),
+          ),
+          child: const Text(
+            "TECH STACK",
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: Color(0xff00F5D4),
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              letterSpacing: 1.5,
+            ),
+          ),
+        ),
 
         const SizedBox(height: 20),
 
@@ -230,21 +244,52 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
           spacing: 12,
           runSpacing: 12,
           children: const [
-            _ColorTechChip(label: "Flutter", iconData: Icons.bolt, brandColor: Color(0xff02569B)),
-            _ColorTechChip(label: "Dart", iconData: Icons.code, brandColor: Color(0xff0175C2)),
-            _ColorTechChip(label: "HTML5", iconData: Icons.html, brandColor: Color(0xffE34F26)),
-            _ColorTechChip(label: "JavaScript", iconData: Icons.javascript, brandColor: Color(0xffF7DF1E)),
-            _ColorTechChip(label: "Python", iconData: Icons.terminal, brandColor: Color(0xff3776AB)),
-            _ColorTechChip(label: "MySQL", iconData: Icons.storage, brandColor: Color(0xff00758F)),
-            _ColorTechChip(label: "Firebase", iconData: Icons.local_fire_department, brandColor: Color(0xffF59E0B)),
-            _ColorTechChip(label: "Git / GitHub", iconData: Icons.hub, brandColor: Color(0xffEF4444)),
+            _ColorTechChip(
+              label: "Flutter",
+              iconData: Icons.bolt,
+              brandColor: Color(0xff02569B),
+            ),
+            _ColorTechChip(
+              label: "Dart",
+              iconData: Icons.code,
+              brandColor: Color(0xff0175C2),
+            ),
+            _ColorTechChip(
+              label: "HTML5",
+              iconData: Icons.html,
+              brandColor: Color(0xffE34F26),
+            ),
+            _ColorTechChip(
+              label: "JavaScript",
+              iconData: Icons.javascript,
+              brandColor: Color(0xffF7DF1E),
+            ),
+            _ColorTechChip(
+              label: "Python",
+              iconData: Icons.terminal,
+              brandColor: Color(0xff3776AB),
+            ),
+            _ColorTechChip(
+              label: "MySQL",
+              iconData: Icons.storage,
+              brandColor: Color(0xff00758F),
+            ),
+            _ColorTechChip(
+              label: "Firebase",
+              iconData: Icons.local_fire_department,
+              brandColor: Color(0xffF59E0B),
+            ),
+            _ColorTechChip(
+              label: "Git / GitHub",
+              iconData: Icons.hub,
+              brandColor: Color(0xffEF4444),
+            ),
           ],
         ),
       ],
     );
   }
 
-  // SISI KIRI: FOTO INTERAKTIF DENGAN DRIVEN FADE ANIMATION
   Widget _buildInteractivePhotoLeft() {
     return AnimatedBuilder(
       animation: _photoFadeAnimation,
@@ -302,7 +347,9 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xff00F5D4).withOpacity(_isPhotoHovered ? 0.18 : 0.02),
+                        color: const Color(
+                          0xff00F5D4,
+                        ).withOpacity(_isPhotoHovered ? 0.18 : 0.02),
                         blurRadius: _isPhotoHovered ? 50 : 30,
                         offset: const Offset(0, 12),
                       ),
@@ -348,76 +395,6 @@ class _AboutSectionState extends State<AboutSection> with SingleTickerProviderSt
   }
 }
 
-// === COMPONENT WIDGET BADGE RGB ANIMATED ROTATION BORDER ===
-class CyberRGBBadge extends StatefulWidget {
-  final String text;
-  const CyberRGBBadge({super.key, this.text = "CORE TECHNOLOGIES"});
-
-  @override
-  State<CyberRGBBadge> createState() => _CyberRGBBadgeState();
-}
-
-class _CyberRGBBadgeState extends State<CyberRGBBadge> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          padding: const EdgeInsets.all(1.5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: SweepGradient(
-              transform: GradientRotation(_controller.value * 2 * 3.14159),
-              colors: const [
-                Color(0xff00D2FF),
-                Color(0xff00F5D4),
-                Color(0xffA855F7),
-                Color(0xff00D2FF),
-              ],
-            ),
-          ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xff090D16),
-              borderRadius: BorderRadius.circular(10.5),
-            ),
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                color: Color(0xff00F5D4),
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                letterSpacing: 1.5,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-// === COMPONENT WIDGET TECH CHIP INTERAKTIF ===
 class _ColorTechChip extends StatefulWidget {
   final String label;
   final IconData iconData;

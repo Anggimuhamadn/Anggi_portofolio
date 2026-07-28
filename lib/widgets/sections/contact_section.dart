@@ -18,24 +18,24 @@ class _ContactChatSectionState extends State<ContactChatSection> {
   bool _isSubmitHovered = false;
   bool _isLoading = false;
 
-  // FUNGSI KIRIM PESAN REAL TIME KE EMAILJS
+
   Future<void> _sendMessage() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
 
-    // ⚠️ MASUKKAN ID DARI DASHBOARD EMAILJS LU DI SINI BRE:
+
     const String serviceId = 'service_bluktty';
     const String templateId = 'template_w6up00x';
     const String publicKey = '8KX3kBYiC-PbMN_f5';
 
-    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final url = Uri.parse('https:api.emailjs.com/api/v1.0/email/send');
 
     try {
       final response = await http.post(
         url,
         headers: {
-          'Origin': 'http://localhost',
+          'Origin': 'http:localhost',
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
@@ -110,7 +110,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // HEADER SECTION MINI BADGE
+
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                   ),
                   const SizedBox(height: 56),
 
-                  // CHAT BOX CONTAINER
+
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xff111827).withOpacity(0.3),
@@ -175,7 +175,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                     ),
                     child: Column(
                       children: [
-                        // CHAT TOP BAR
+
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                           decoration: BoxDecoration(
@@ -242,7 +242,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                           ),
                         ),
 
-                        // CHAT BODY KONTEN
+
                         Padding(
                           padding: const EdgeInsets.all(28),
                           child: Column(
@@ -284,7 +284,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                               ),
                               const SizedBox(height: 36),
 
-                              // FORM INPUT
+
                               Form(
                                 key: _formKey,
                                 child: Column(
@@ -313,7 +313,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                                     ),
                                     const SizedBox(height: 28),
 
-                                    // BUTTON SEND
+
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: MouseRegion(

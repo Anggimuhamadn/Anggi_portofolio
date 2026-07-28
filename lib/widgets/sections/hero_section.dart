@@ -14,7 +14,8 @@ class HeroSection extends StatefulWidget {
   State<HeroSection> createState() => _HeroSectionState();
 }
 
-class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStateMixin {
+class _HeroSectionState extends State<HeroSection>
+    with SingleTickerProviderStateMixin {
   double _rotateX = 0.0;
   double _rotateY = 0.0;
   bool _isHovered = false;
@@ -45,21 +46,10 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        /// BASE BACKGROUND MASTER
-        Positioned.fill(
-          child: Container(
-            color: const Color(0xff090D16),
-          ),
-        ),
+        Positioned.fill(child: Container(color: const Color(0xff090D16))),
 
-        /// GRID PATTERN BACKDROP
-        Positioned.fill(
-          child: CustomPaint(
-            painter: HeroGridPainter(),
-          ),
-        ),
+        Positioned.fill(child: CustomPaint(painter: HeroGridPainter())),
 
-        /// CYBER GLOW MESH BACKGROUND
         Positioned(
           top: -150,
           left: -100,
@@ -103,7 +93,6 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
           ),
         ),
 
-        /// MAIN CONTENT LAYOUT
         LayoutBuilder(
           builder: (context, constraints) {
             double screenWidth = MediaQuery.of(context).size.width;
@@ -111,41 +100,37 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
             return Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                vertical: isDesktop ? 80 : 40,
-              ),
+              padding: EdgeInsets.symmetric(vertical: isDesktop ? 80 : 40),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: AppSize.maxWidth,
-                  ),
+                  constraints: const BoxConstraints(maxWidth: AppSize.maxWidth),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: isDesktop ? 40 : 20,
                     ),
                     child: isDesktop
                         ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: _buildLeftContent(isDesktop),
-                        ),
-                        const SizedBox(width: 30),
-                        Expanded(
-                          flex: 5,
-                          child: _buildRightPhoto(screenWidth),
-                        ),
-                      ],
-                    )
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: _buildLeftContent(isDesktop),
+                              ),
+                              const SizedBox(width: 30),
+                              Expanded(
+                                flex: 5,
+                                child: _buildRightPhoto(screenWidth),
+                              ),
+                            ],
+                          )
                         : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildLeftContent(isDesktop),
-                        const SizedBox(height: 32),
-                        _buildRightPhoto(screenWidth),
-                      ],
-                    ),
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildLeftContent(isDesktop),
+                              const SizedBox(height: 32),
+                              _buildRightPhoto(screenWidth),
+                            ],
+                          ),
                   ),
                 ),
               ),
@@ -156,25 +141,16 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
     );
   }
 
-  /// WIDGET SISI KIRI
   Widget _buildLeftContent(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // 1. PULSE GLOW INTRO BADGE
-
-
         const SizedBox(height: 18),
 
-        // 2. NAMA FULL GRADASI
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [
-              Color(0xffF8FAFC),
-              Color(0xff00D2FF),
-              Color(0xff6366F1),
-            ],
+            colors: [Color(0xffF8FAFC), Color(0xff00D2FF), Color(0xff6366F1)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ).createShader(bounds),
@@ -198,7 +174,6 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
         const SizedBox(height: 12),
 
-        // 3. ROLE TEXT
         Text(
           AppData.role,
           style: GoogleFonts.inter(
@@ -210,7 +185,6 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
         const SizedBox(height: 16),
 
-        // 4. SUBTITLE (DIBIKIN TERANG MENYALA)
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 540),
           child: Text(
@@ -218,7 +192,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
             style: GoogleFonts.inter(
               fontSize: 15,
               height: 1.6,
-              color: const Color(0xff94A3B8), // TERANG ABU-ABU PUTIH
+              color: const Color(0xff94A3B8),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -226,31 +200,30 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
         const SizedBox(height: 24),
 
-        // 5. ROW SOSMED
         Row(
           children: const [
             _SocialIcon(
               imagePath: 'assets/images/icon/github.png',
-              url: 'https://github.com/Anggimuhamadn',
+              url: 'https:github.com/Anggimuhamadn',
               tooltip: 'GitHub',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/i.png',
-              url: 'https://www.instagram.com/dvlrspctg/?hl=en',
+              url: 'https:www.instagram.com/dvlrspctg/?hl=en',
               tooltip: 'LinkedIn',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/w.png',
-              // Format: https://wa.me/<nomor_hp>?text=<pesan_otomatis>
-              url: 'https://wa.me/6283127152809?text=Halo%20Anggi,%20saya%20tertarik%20untuk%20discuss%20project%20atau%20bekerja%20sama!',
+              url:
+                  'https:wa.me/6283127152809?text=Halo%20Anggi,%20saya%20tertarik%20untuk%20discuss%20project%20atau%20bekerja%20sama!',
               tooltip: 'WhatsApp',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/l.png',
-              url: 'https://www.linkedin.com/in/anggi-muhamad-nawawi/',
+              url: 'https:www.linkedin.com/in/anggi-muhamad-nawawi/',
               tooltip: 'Instagram',
             ),
           ],
@@ -258,15 +231,15 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
         const SizedBox(height: 28),
 
-        // 6. HERO STATS WIDGET
         const HeroStats(),
       ],
     );
   }
 
-  /// WIDGET SISI KANAN
   Widget _buildRightPhoto(double screenWidth) {
-    double photoSize = screenWidth > 1200 ? 420 : (screenWidth > 950 ? 360 : 320);
+    double photoSize = screenWidth > 1200
+        ? 420
+        : (screenWidth > 950 ? 360 : 320);
 
     return Center(
       child: MouseRegion(
@@ -298,9 +271,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
             duration: const Duration(milliseconds: 200),
             width: photoSize,
             height: photoSize,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(38.5),
               child: BackdropFilter(
@@ -374,9 +345,6 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
   }
 }
 
-// =========================================================================
-// WIDGET SOCIAL ICON DENGAN BACKGROUND TERANG
-// =========================================================================
 class _SocialIcon extends StatefulWidget {
   final String imagePath;
   final String url;
@@ -431,32 +399,30 @@ class _SocialIconState extends State<_SocialIcon> {
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                // DI DALAM _SocialIconState -> AnimatedContainer -> decoration: BoxDecoration(...)
+
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
 
-                  // 1. Background lingkaran pake warna cyan/blue neon transparan tipis
                   color: _isHovered
                       ? const Color(0xff00D2FF).withOpacity(0.35)
-                      : const Color(0xff00D2FF).withOpacity(0.10), // Neon blue tipis saat biasa
+                      : const Color(0xff00D2FF).withOpacity(0.10),
 
-                  // 2. Border lingkaran diubah jadi BLUE NEON TEGAS
                   border: Border.all(
                     color: _isHovered
                         ? const Color(0xff00D2FF)
-                        : const Color(0xff00D2FF).withOpacity(0.60), // Blue neon tegas menyala
+                        : const Color(0xff00D2FF).withOpacity(0.60),
                     width: _isHovered ? 2.0 : 1.5,
                   ),
 
-                  // 3. Efek Glow/Pijar Neon
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xff00D2FF).withOpacity(_isHovered ? 0.60 : 0.25), // Glow biru neon
+                      color: const Color(
+                        0xff00D2FF,
+                      ).withOpacity(_isHovered ? 0.60 : 0.25),
                       blurRadius: _isHovered ? 22 : 10,
                       spreadRadius: _isHovered ? 3 : 1,
                     ),
                   ],
-
                 ),
                 child: Center(
                   child: AnimatedScale(
@@ -465,10 +431,7 @@ class _SocialIconState extends State<_SocialIcon> {
                     child: SizedBox(
                       width: 24,
                       height: 24,
-                      child: Image.asset(
-                        widget.imagePath,
-                        fit: BoxFit.contain,
-                      ),
+                      child: Image.asset(widget.imagePath, fit: BoxFit.contain),
                     ),
                   ),
                 ),
@@ -481,7 +444,6 @@ class _SocialIconState extends State<_SocialIcon> {
   }
 }
 
-// CUSTOM PAINTER
 class HeroGridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isScrolled = false;
-  int _currentActiveIndex = -1; // -1 = Hero Section Active
+  int _currentActiveIndex = -1;
 
   final ScrollController _scrollController = ScrollController();
 
@@ -67,7 +67,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // LOGIC DETEKSI SECTION AKTIF PAS DI-SCROLL
   void _checkActiveSection() {
     double scrollOffset = _scrollController.offset;
 
@@ -80,15 +79,15 @@ class _HomePageState extends State<HomePage> {
     int newIndex = -1;
 
     if (contactTop != null && scrollOffset >= (contactTop - 250)) {
-      newIndex = 4; // Contact
+      newIndex = 4;
     } else if (certTop != null && scrollOffset >= (certTop - 250)) {
-      newIndex = 3; // Certifications
+      newIndex = 3;
     } else if (projectsTop != null && scrollOffset >= (projectsTop - 250)) {
-      newIndex = 2; // Projects
+      newIndex = 2;
     } else if (experienceTop != null && scrollOffset >= (experienceTop - 250)) {
-      newIndex = 1; // Experience
+      newIndex = 1;
     } else if (aboutTop != null && scrollOffset >= (aboutTop - 250)) {
-      newIndex = 0; // About
+      newIndex = 0;
     }
 
     if (_currentActiveIndex != newIndex) {
@@ -100,7 +99,7 @@ class _HomePageState extends State<HomePage> {
 
   double? _getSectionOffset(GlobalKey key) {
     final RenderBox? renderBox =
-    key.currentContext?.findRenderObject() as RenderBox?;
+        key.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
       return renderBox.localToGlobal(Offset.zero).dy + _scrollController.offset;
     }
@@ -111,27 +110,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // PERHITUNGAN ANIMASI PARALLAX SHRINK GITHUB
-    double heroProgress = (_scrollOffset / (screenHeight * 0.7)).clamp(0.0, 1.0);
-    double heroScale = 1.0 - (heroProgress * 0.08); // Hero mengecil halus (100% -> 92%)
-    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0); // Meradup pelan
-    double heroTranslateY = _scrollOffset * 0.40; // Pergerakan parallax melayang
+    double heroProgress = (_scrollOffset / (screenHeight * 0.7)).clamp(
+      0.0,
+      1.0,
+    );
+    double heroScale = 1.0 - (heroProgress * 0.08);
+    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0);
+    double heroTranslateY = _scrollOffset * 0.40;
 
     return Scaffold(
       backgroundColor: const Color(0xff090D16),
       body: Stack(
         children: [
-          // ===================================================================
-          // 1. SINGLE CHILD SCROLL VIEW UTAMA
-          // ===================================================================
           SingleChildScrollView(
             controller: _scrollController,
             physics: const BouncingScrollPhysics(),
             child: Stack(
               children: [
-                // -------------------------------------------------------------
-                // LAYER A: HERO SECTION (BEBAS DARI LAYER PENUTUP & INTERAKSI 100%)
-                // -------------------------------------------------------------
                 Transform.translate(
                   offset: Offset(0, heroTranslateY),
                   child: Opacity(
@@ -146,14 +141,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                // -------------------------------------------------------------
-                // LAYER B: OVERLAP SHEET KARTU PENUTUP (NAIK MENUTUPI HERO)
-                // -------------------------------------------------------------
                 Padding(
-                  padding: EdgeInsets.only(top: screenHeight * 0.99), // Atau paka screenHeight murni
+                  padding: EdgeInsets.only(top: screenHeight * 0.99),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xff090D16), // Solid Cyber Black Penutup
+                      color: const Color(0xff090D16),
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40),
@@ -177,7 +169,6 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         const SizedBox(height: 18),
 
-                        // Handle bar UI ala GitHub
                         Center(
                           child: Container(
                             width: 48,
@@ -190,7 +181,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 20),
 
-                        // RANGKAIAN SECTION PORTFOLIO
                         AboutSection(key: _aboutKey),
                         ExperienceSection(key: _experienceKey),
                         ProjectSection(key: _projectsKey),
@@ -206,9 +196,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // ===================================================================
-          // 2. STICKY NAVBAR MELAYANG DI ATAS
-          // ===================================================================
           Positioned(
             top: 0,
             left: 0,

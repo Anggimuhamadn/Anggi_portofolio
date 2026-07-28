@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// === DATA MODEL EXPERIENCE ===
 class ExperienceData {
   final String role;
   final String company;
@@ -28,24 +27,39 @@ class ExperienceSection extends StatelessWidget {
       company: "Internal Operational System Project",
       period: "2024 - 2025",
       description:
-      "Merancang dan mendesain aplikasi mobile untuk digitalisasi manajemen data operasional security. Mengubah pencatatan logbook manual menjadi sistem digital terstruktur, mempercepat pelaporan insiden, dan meningkatkan akurasi rekap data lapangan.",
-      tags: ["Mobile Development", "Data Management", "Process Automation", "UI/UX"],
+          "Merancang dan mendesain aplikasi mobile untuk digitalisasi manajemen data operasional security. Mengubah pencatatan logbook manual menjadi sistem digital terstruktur, mempercepat pelaporan insiden, dan meningkatkan akurasi rekap data lapangan.",
+      tags: [
+        "Mobile Development",
+        "Data Management",
+        "Process Automation",
+        "UI/UX",
+      ],
     ),
     ExperienceData(
       role: "Operational Security Officer",
       company: "Professional Security Service",
       period: "2023 - Sekarang",
       description:
-      "Bertanggung jawab atas pengawasan keamanan fisik, analisis risiko area, serta penerapan SOP operasional secara ketat. Mengasah komunikasi interpersonal, manajemen krisis, disiplin tinggi, serta ketelitian detail dalam pencatatan log book dan situasi harian.",
-      tags: ["Risk Analysis", "Access Control", "Crisis Management", "SOP Compliance"],
+          "Bertanggung jawab atas pengawasan keamanan fisik, analisis risiko area, serta penerapan SOP operasional secara ketat. Mengasah komunikasi interpersonal, manajemen krisis, disiplin tinggi, serta ketelitian detail dalam pencatatan log book dan situasi harian.",
+      tags: [
+        "Risk Analysis",
+        "Access Control",
+        "Crisis Management",
+        "SOP Compliance",
+      ],
     ),
     ExperienceData(
       role: "Riset Software & Proyek Akhir Kuliah",
       company: "Universitas Indraprasta PGRI",
       period: "2021 - 2025",
       description:
-      "Mengembangkan Sistem Pendukung Keputusan (SPK) perbaikan fasilitas menggunakan metode Weighted Product (WP). Berfokus pada perancangan arsitektur aplikasi yang bersih, analisis data terstruktur, dan antarmuka pengguna yang intuitif.",
-      tags: ["Informatics Engineering", "Decision Support System", "Clean Architecture", "UI/UX"],
+          "Mengembangkan Sistem Pendukung Keputusan (SPK) perbaikan fasilitas menggunakan metode Weighted Product (WP). Berfokus pada perancangan arsitektur aplikasi yang bersih, analisis data terstruktur, dan antarmuka pengguna yang intuitif.",
+      tags: [
+        "Informatics Engineering",
+        "Decision Support System",
+        "Clean Architecture",
+        "UI/UX",
+      ],
     ),
   ];
 
@@ -67,9 +81,11 @@ class ExperienceSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // INTRO BADGE NEON CYAN
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xff00D2FF).withOpacity(0.06),
                   borderRadius: BorderRadius.circular(20),
@@ -81,8 +97,11 @@ class ExperienceSection extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.work_history_rounded,
-                        color: Color(0xff00D2FF), size: 14),
+                    const Icon(
+                      Icons.work_history_rounded,
+                      color: Color(0xff00D2FF),
+                      size: 14,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       "CAREER PATH",
@@ -99,7 +118,6 @@ class ExperienceSection extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              // TIMELINE LIST
               Column(
                 children: List.generate(_listExperience.length, (index) {
                   return _FuturisticTimelineTile(
@@ -117,7 +135,6 @@ class ExperienceSection extends StatelessWidget {
   }
 }
 
-// === COMPONENT WIDGET: CYBER GLASS TIMELINE CARD ===
 class _FuturisticTimelineTile extends StatefulWidget {
   final ExperienceData data;
   final bool isFirst;
@@ -145,7 +162,6 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 1. TIMELINE NODE (KIRI)
           SizedBox(
             width: 24,
             child: Column(
@@ -172,7 +188,7 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                           color: const Color(0xff00D2FF).withOpacity(0.8),
                           blurRadius: 12,
                           spreadRadius: 2,
-                        )
+                        ),
                     ],
                   ),
                 ),
@@ -181,7 +197,6 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
           ),
           const SizedBox(width: 16),
 
-          // 2. KARTU ISI (KANAN)
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -212,7 +227,6 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // RESPONSIVE HEADER
                     LayoutBuilder(
                       builder: (context, constraints) {
                         bool isMobile = constraints.maxWidth < 480;
@@ -223,15 +237,16 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 36,
                                     height: 36,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xff00D2FF)
-                                          .withOpacity(0.10),
+                                      color: const Color(
+                                        0xff00D2FF,
+                                      ).withOpacity(0.10),
                                     ),
                                     child: const Icon(
                                       Icons.developer_board_rounded,
@@ -241,10 +256,13 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                                   ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 4),
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xff1E293B)
-                                          .withOpacity(0.5),
+                                      color: const Color(
+                                        0xff1E293B,
+                                      ).withOpacity(0.5),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
@@ -288,8 +306,9 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                               margin: const EdgeInsets.only(right: 14),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                color: const Color(0xff00D2FF)
-                                    .withOpacity(0.10),
+                                color: const Color(
+                                  0xff00D2FF,
+                                ).withOpacity(0.10),
                               ),
                               child: const Icon(
                                 Icons.developer_board_rounded,
@@ -324,10 +343,11 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                             const SizedBox(width: 10),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
-                                color: const Color(0xff1E293B)
-                                    .withOpacity(0.5),
+                                color: const Color(0xff1E293B).withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
@@ -345,7 +365,6 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
 
                     const SizedBox(height: 14),
 
-                    // DESKRIPSI
                     Text(
                       widget.data.description,
                       style: GoogleFonts.inter(
@@ -356,14 +375,15 @@ class _FuturisticTimelineTileState extends State<_FuturisticTimelineTile> {
                     ),
                     const SizedBox(height: 14),
 
-                    // TAGS
                     Wrap(
                       spacing: 6,
                       runSpacing: 6,
                       children: widget.data.tags.map((tag) {
                         return Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xff1E293B).withOpacity(0.3),
                             borderRadius: BorderRadius.circular(6),

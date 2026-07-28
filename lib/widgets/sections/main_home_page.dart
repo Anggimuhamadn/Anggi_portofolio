@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-// Import section-section lu di sini bre:
 import '../../widgets/sections/hero_section.dart';
 import '../../widgets/sections/project_section.dart';
 import '../../widgets/sections/experience_section.dart';
@@ -38,19 +37,18 @@ class _MainHomePageState extends State<MainHomePage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // Perhitungan efek parallax, shrink (scale), & fade pas di-scroll
-    double heroProgress = (_scrollOffset / (screenHeight * 0.7)).clamp(0.0, 1.0);
-    double heroScale = 1.0 - (heroProgress * 0.08); // Mengecil halus (100% -> 92%)
-    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0); // Meredup
-    double heroTranslateY = _scrollOffset * 0.35; // Gerakan parallax lambat
+    double heroProgress = (_scrollOffset / (screenHeight * 0.7)).clamp(
+      0.0,
+      1.0,
+    );
+    double heroScale = 1.0 - (heroProgress * 0.08);
+    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0);
+    double heroTranslateY = _scrollOffset * 0.35;
 
     return Scaffold(
       backgroundColor: const Color(0xff090D16),
       body: Stack(
         children: [
-          // ===================================================================
-          // 1. HERO SECTION (STICKY DI BELAKANG DENGAN EFEK SHRINK & FADE)
-          // ===================================================================
           Positioned(
             top: -heroTranslateY,
             left: 0,
@@ -60,23 +58,18 @@ class _MainHomePageState extends State<MainHomePage> {
               opacity: heroOpacity,
               child: Transform.scale(
                 scale: heroScale,
-                child: const HeroSection(), // <--- KODINGAN HERO LU YANG TADI
+                child: const HeroSection(),
               ),
             ),
           ),
 
-          // ===================================================================
-          // 2. KONTEN BAWAH (EXPERIENCE, PROJECTS, CONTACT) NAIK MENUTUPI HERO
-          // ===================================================================
           SingleChildScrollView(
             controller: _scrollController,
             physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
-                // Transparan spacer setinggi layar (biar Hero kelihatan utuh dulu)
                 SizedBox(height: screenHeight * 0.85),
 
-                // KARTU PENUTUP UTAMA (OVERLAP SHEET ALA GITHUB)
                 Container(
                   decoration: BoxDecoration(
                     color: const Color(0xff090D16),
@@ -86,7 +79,7 @@ class _MainHomePageState extends State<MainHomePage> {
                     ),
                     border: Border(
                       top: BorderSide(
-                        color: const Color(0xff00D2FF).withOpacity(0.35), // Line Glow Neon Cyan
+                        color: const Color(0xff00D2FF).withOpacity(0.35),
                         width: 1.5,
                       ),
                     ),
@@ -103,7 +96,6 @@ class _MainHomePageState extends State<MainHomePage> {
                     children: [
                       const SizedBox(height: 18),
 
-                      // Handle bar kecil ala UI modern/GitHub Universe
                       Center(
                         child: Container(
                           width: 48,
@@ -115,15 +107,10 @@ class _MainHomePageState extends State<MainHomePage> {
                         ),
                       ),
                       const SizedBox(height: 30),
-
-                      // =======================================================
-                      // SECTION-SECTION LU YANG NAIK NGGANJEL / MENUTUPI HERO
-                      // =======================================================
                       const ExperienceSection(),
                       const ProjectSection(),
                       const ContactChatSection(),
 
-                      // FOOTER (kalo ada)
                       const SizedBox(height: 80),
                     ],
                   ),

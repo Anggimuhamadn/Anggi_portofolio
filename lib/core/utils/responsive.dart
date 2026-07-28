@@ -10,7 +10,7 @@ class Responsive {
 
   static bool isTablet(BuildContext context) =>
       MediaQuery.of(context).size.width >= AppBreakpoints.mobile &&
-          MediaQuery.of(context).size.width < AppBreakpoints.desktop;
+      MediaQuery.of(context).size.width < AppBreakpoints.desktop;
 
   static bool isDesktop(BuildContext context) =>
       MediaQuery.of(context).size.width >= AppBreakpoints.desktop;

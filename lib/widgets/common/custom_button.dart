@@ -20,33 +20,17 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor:
-        filled ? AppColors.textPrimary : Colors.transparent,
+        backgroundColor: filled ? AppColors.textPrimary : Colors.transparent,
 
-        foregroundColor:
-        filled ? Colors.white : AppColors.textPrimary,
+        foregroundColor: filled ? Colors.white : AppColors.textPrimary,
 
-        side: filled
-            ? BorderSide.none
-            : BorderSide(
-          color: AppColors.border,
-        ),
+        side: filled ? BorderSide.none : BorderSide(color: AppColors.border),
 
-        padding: const EdgeInsets.symmetric(
-          horizontal: 28,
-          vertical: 18,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
 
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      child: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
     );
   }
 }

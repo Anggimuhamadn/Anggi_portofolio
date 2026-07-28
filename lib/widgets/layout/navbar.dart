@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // Pengganti dart:html biar aman di HP & Laptop
+import 'package:url_launcher/url_launcher.dart';
 
 class Navbar extends StatefulWidget {
   final ValueChanged<int> onNavClick;
@@ -30,7 +30,6 @@ class _NavbarState extends State<Navbar> {
     }
   }
 
-  // Fungsi buat ngebuka Modal Bottom Sheet / Drawer Menu pas di HP
   void _openMobileMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -45,14 +44,11 @@ class _NavbarState extends State<Navbar> {
           decoration: BoxDecoration(
             color: const Color(0xff090D16),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border.all(
-              color: const Color(0xff00D2FF).withOpacity(0.2),
-            ),
+            border: Border.all(color: const Color(0xff00D2FF).withOpacity(0.2)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Handle Bar Atas Modal
               Container(
                 width: 40,
                 height: 4,
@@ -63,7 +59,6 @@ class _NavbarState extends State<Navbar> {
               ),
               const SizedBox(height: 24),
 
-              // LIST MENU MOBILENYA
               _buildMobileNavItem("About", 0),
               _buildMobileNavItem("Experience", 1),
               _buildMobileNavItem("Projects", 2),
@@ -71,10 +66,7 @@ class _NavbarState extends State<Navbar> {
               _buildMobileNavItem("Contact", 4),
 
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: _buildResumeButton(),
-              ),
+              SizedBox(width: double.infinity, child: _buildResumeButton()),
               const SizedBox(height: 12),
             ],
           ),
@@ -87,8 +79,8 @@ class _NavbarState extends State<Navbar> {
     bool isActive = widget.activeIndex == index;
     return ListTile(
       onTap: () {
-        Navigator.pop(context); // Tutup menu popup
-        widget.onNavClick(index); // Scroll ke section
+        Navigator.pop(context);
+        widget.onNavClick(index);
       },
       title: Text(
         title,
@@ -100,7 +92,11 @@ class _NavbarState extends State<Navbar> {
         ),
       ),
       trailing: isActive
-          ? const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xff00D2FF), size: 14)
+          ? const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Color(0xff00D2FF),
+              size: 14,
+            )
           : null,
     );
   }
@@ -108,15 +104,15 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    bool isMobile = screenWidth < 800; // Breakpoint HP/Tablet Sempit
+    bool isMobile = screenWidth < 800;
 
     return SafeArea(
       child: AnimatedPadding(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeInOutCubic,
         padding: EdgeInsets.only(
-          left: isMobile ? 16 : (widget.isScrolled ? 80 : 60),  // Padding dinamis buat HP
-          right: isMobile ? 16 : (widget.isScrolled ? 80 : 60), // Padding dinamis buat HP
+          left: isMobile ? 16 : (widget.isScrolled ? 80 : 60),
+          right: isMobile ? 16 : (widget.isScrolled ? 80 : 60),
           top: isMobile ? 10 : 20,
         ),
         child: ClipRRect(
@@ -145,16 +141,15 @@ class _NavbarState extends State<Navbar> {
                 boxShadow: widget.isScrolled
                     ? []
                     : [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
-                    blurRadius: 30,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.15),
+                          blurRadius: 30,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
               ),
               child: Row(
                 children: [
-                  // 1. LOGO BRANDING (< />)
                   MouseRegion(
                     onEnter: (_) => setState(() => _isLogoHovered = true),
                     onExit: (_) => setState(() => _isLogoHovered = false),
@@ -169,21 +164,30 @@ class _NavbarState extends State<Navbar> {
                           width: isMobile ? 38 : 44,
                           height: isMobile ? 38 : 44,
                           decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: _isLogoHovered
-                                    ? [const Color(0xff00D2FF), const Color(0xff6366F1)]
-                                    : [const Color(0xff6366F1), const Color(0xff00D2FF)],
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: _isLogoHovered
+                                  ? [
+                                      const Color(0xff00D2FF),
+                                      const Color(0xff6366F1),
+                                    ]
+                                  : [
+                                      const Color(0xff6366F1),
+                                      const Color(0xff00D2FF),
+                                    ],
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(
+                                  0xff00D2FF,
+                                ).withOpacity(_isLogoHovered ? 0.6 : 0.3),
+                                blurRadius: _isLogoHovered ? 16 : 10,
+                                offset: const Offset(0, 4),
                               ),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xff00D2FF).withOpacity(_isLogoHovered ? 0.6 : 0.3),
-                                  blurRadius: _isLogoHovered ? 16 : 10,
-                                  offset: const Offset(0, 4),
-                                )
-                              ]),
+                            ],
+                          ),
                           child: const Center(
                             child: Text(
                               "< />",
@@ -203,7 +207,6 @@ class _NavbarState extends State<Navbar> {
 
                   const Spacer(),
 
-                  // 2. NAV ITEMS (JIKA LAPTOP TAMPILKAN HORIZONTAL, JIKA HP TAMPILKAN TOMBOL HAMBURGER)
                   if (!isMobile) ...[
                     _HoverNavItem(
                       title: "About",
@@ -237,7 +240,6 @@ class _NavbarState extends State<Navbar> {
                     const Spacer(),
                     _buildResumeButton(),
                   ] else ...[
-                    // TOMBOL HAMBURGER KHUSUS HP
                     IconButton(
                       onPressed: () => _openMobileMenu(context),
                       icon: const Icon(
@@ -283,18 +285,17 @@ class _NavbarState extends State<Navbar> {
                     end: Alignment.bottomRight,
                     colors: _isResumeHovered
                         ? [
-                      const Color(0xff00D2FF),
-                      const Color(0xff6366F1),
-                      const Color(0xffEC4899),
-                    ]
-                        : [
-                      const Color(0xff0088FF),
-                      const Color(0xff4F46E5),
-                    ],
+                            const Color(0xff00D2FF),
+                            const Color(0xff6366F1),
+                            const Color(0xffEC4899),
+                          ]
+                        : [const Color(0xff0088FF), const Color(0xff4F46E5)],
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xff00D2FF).withOpacity(_isResumeHovered ? 0.5 : 0.15),
+                      color: const Color(
+                        0xff00D2FF,
+                      ).withOpacity(_isResumeHovered ? 0.5 : 0.15),
                       blurRadius: _isResumeHovered ? 24 : 8,
                       offset: const Offset(0, 4),
                     ),
@@ -306,7 +307,10 @@ class _NavbarState extends State<Navbar> {
                     disabledBackgroundColor: Colors.transparent,
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 14,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -325,7 +329,11 @@ class _NavbarState extends State<Navbar> {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Icon(Icons.north_east_rounded, color: Colors.white, size: 15),
+                      Icon(
+                        Icons.north_east_rounded,
+                        color: Colors.white,
+                        size: 15,
+                      ),
                     ],
                   ),
                 ),
@@ -338,7 +346,6 @@ class _NavbarState extends State<Navbar> {
   }
 }
 
-// COMPONENT HOVERNAVITEM
 class _HoverNavItem extends StatefulWidget {
   final String title;
   final VoidCallback onTap;
@@ -382,7 +389,9 @@ class _HoverNavItemState extends State<_HoverNavItem> {
                   fontFamily: 'Inter',
                   color: shouldHighlight ? hoverTextColor : defaultTextColor,
                   fontSize: 14,
-                  fontWeight: shouldHighlight ? FontWeight.w600 : FontWeight.w500,
+                  fontWeight: shouldHighlight
+                      ? FontWeight.w600
+                      : FontWeight.w500,
                   letterSpacing: 0.5,
                 ),
                 child: Text(widget.title),
@@ -393,15 +402,16 @@ class _HoverNavItemState extends State<_HoverNavItem> {
                 height: 2,
                 width: shouldHighlight ? 24 : 0,
                 decoration: BoxDecoration(
-                    color: const Color(0xff00D2FF),
-                    borderRadius: BorderRadius.circular(2),
-                    boxShadow: [
-                      if (shouldHighlight)
-                        BoxShadow(
-                          color: const Color(0xff00D2FF).withOpacity(0.8),
-                          blurRadius: 6,
-                        )
-                    ]),
+                  color: const Color(0xff00D2FF),
+                  borderRadius: BorderRadius.circular(2),
+                  boxShadow: [
+                    if (shouldHighlight)
+                      BoxShadow(
+                        color: const Color(0xff00D2FF).withOpacity(0.8),
+                        blurRadius: 6,
+                      ),
+                  ],
+                ),
               ),
             ],
           ),

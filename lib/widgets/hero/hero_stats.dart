@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // <--- PASTIIN IMPORT GOOGLE FONTS NYA AKTIF BLAY
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 
 class HeroStats extends StatelessWidget {
@@ -9,24 +9,23 @@ class HeroStats extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ANGKA STATISTIK: KITA BIKIN WARNA CYAN NEON PREMIUM + FONT INTER TEBEL COKOH
         Text(
           value,
           style: GoogleFonts.inter(
             fontSize: 28,
-            fontWeight: FontWeight.w900, // Ketebalan maksimal biar berbobot
-            color: const Color(0xff94A3B8), //FIX WARNA: Cyan Neon bersinar blay!
+            fontWeight: FontWeight.w900,
+            color: const Color(0xff94A3B8),
             letterSpacing: -0.5,
           ),
         ),
         const SizedBox(height: 6),
-        // LABEL: KITA SAMAIN WARNANYA PAKE SLATE GREY KALEM DENGAN FONT INTER
+
         Text(
           label,
           style: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: const Color(0xff94A3B8), // FIX WARNA: Slate Grey kalem sewarna subtitle role dev lu bre
+            color: const Color(0xff94A3B8),
           ),
         ),
       ],

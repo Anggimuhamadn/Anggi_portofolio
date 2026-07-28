@@ -7,12 +7,8 @@ class HeroBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        /// Background dasar
-        Container(
-          color: const Color(0xffF8FAFC),
-        ),
+        Container(color: const Color(0xffF8FAFC)),
 
-        /// Mesh biru kiri atas
         Positioned(
           top: -250,
           left: -220,
@@ -31,7 +27,6 @@ class HeroBackground extends StatelessWidget {
           ),
         ),
 
-        /// Mesh ungu kanan bawah
         Positioned(
           bottom: -280,
           right: -240,
@@ -50,28 +45,20 @@ class HeroBackground extends StatelessWidget {
           ),
         ),
 
-        /// Glow tengah
         Align(
           child: Container(
             width: 700,
             height: 700,
             decoration: BoxDecoration(
               gradient: RadialGradient(
-                colors: [
-                  Colors.white.withOpacity(.45),
-                  Colors.transparent,
-                ],
+                colors: [Colors.white.withOpacity(.45), Colors.transparent],
               ),
             ),
           ),
         ),
 
-        /// Grid tipis
         IgnorePointer(
-          child: CustomPaint(
-            painter: GridPainter(),
-            size: Size.infinite,
-          ),
+          child: CustomPaint(painter: GridPainter(), size: Size.infinite),
         ),
       ],
     );
@@ -88,19 +75,11 @@ class GridPainter extends CustomPainter {
     const spacing = 48.0;
 
     for (double x = 0; x <= size.width; x += spacing) {
-      canvas.drawLine(
-        Offset(x, 0),
-        Offset(x, size.height),
-        paint,
-      );
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
     }
 
     for (double y = 0; y <= size.height; y += spacing) {
-      canvas.drawLine(
-        Offset(0, y),
-        Offset(size.width, y),
-        paint,
-      );
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
   }
 

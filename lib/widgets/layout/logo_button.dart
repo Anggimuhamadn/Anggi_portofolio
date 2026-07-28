@@ -28,16 +28,11 @@ class _LogoButtonState extends State<LogoButton> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
             gradient: const LinearGradient(
-              colors: [
-                Color(0xff2563EB),
-                Color(0xff7C3AED),
-              ],
+              colors: [Color(0xff2563EB), Color(0xff7C3AED)],
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.blue.withOpacity(
-                  hover ? .30 : .15,
-                ),
+                color: Colors.blue.withOpacity(hover ? .30 : .15),
                 blurRadius: hover ? 28 : 16,
                 offset: const Offset(0, 8),
               ),
@@ -49,10 +44,7 @@ class _LogoButtonState extends State<LogoButton> {
               transitionBuilder: (child, animation) {
                 return FadeTransition(
                   opacity: animation,
-                  child: ScaleTransition(
-                    scale: animation,
-                    child: child,
-                  ),
+                  child: ScaleTransition(scale: animation, child: child),
                 );
               },
               child: Text(
