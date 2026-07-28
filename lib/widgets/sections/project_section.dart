@@ -23,8 +23,8 @@ class _ProjectSectionState extends State<ProjectSection>
           "Sistem Pendukung Keputusan berbasis web/mobile untuk menentukan prioritas perbaikan fasilitas menggunakan metode Weighted Product (WP).",
       "imageUrl": "assets/images/project/c.png",
       "tags": ["Mobile Dev", "Data Management", "Process Automation"],
-      "githubUrl": "https:github.com/Anggimuhamadn",
-      "liveUrl": "https:github.com/Anggimuhamadn",
+      "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
+      "liveUrl": "https://github.com/Anggimuhamadn?tab=repositories",
     },
     {
       "title": "Security Logbook & Patrol management",
@@ -32,8 +32,8 @@ class _ProjectSectionState extends State<ProjectSection>
           " Aplikasi mobile digitalisasi operasional kemanan fisik,Mengintegrasikan pencatatan real-time, pelaporan insiden presisi,dan manajemen data akses terpusat.",
       "imageUrl": "assets/images/project/b.jpeg",
       "tags": ["Decision Support System", "Algorithm", "UI/UX"],
-      "githubUrl": "https:github.com/Anggimuhamadn",
-      "liveUrl": "https:github.com/Anggimuhamadn",
+      "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
+      "liveUrl": "https://github.com/Anggimuhamadn?tab=repositories",
     },
     {
       "title": "Report",
@@ -42,16 +42,16 @@ class _ProjectSectionState extends State<ProjectSection>
       "imageUrl": "assets/images/project/d.jpeg",
       "alignment": Alignment.center,
       "tags": ["Flutter", "Bloc", "Node.js"],
-      "githubUrl": "https:github.com/Anggimuhamadn",
-      "liveUrl": "https:github.com/Anggimuhamadn",
+      "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
+      "liveUrl": "https://github.com/Anggimuhamadn?tab=repositories",
     },
     {
       "title": "Visitor & Parking Registration System",
       "desc": "Sistem manajemen registrasi pengunjung dan kendaraan area terbatas. Dilengkapi validasi plat nomor otomatis, cetak pass masuk digital, serta pemantauan kuota parkir real-time.",
       "imageUrl": "assets/images/project/e.png",
       "tags": ["Flutter", "Riverpod", "REST API"],
-      "githubUrl": "https:github.com/Anggimuhamadn",
-      "liveUrl": "https:github.com/Anggimuhamadn",
+      "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
+      "liveUrl": "https://github.com/Anggimuhamadn?tab=repositories",
     },
   ];
 

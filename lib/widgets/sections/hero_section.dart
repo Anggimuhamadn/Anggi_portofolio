@@ -204,7 +204,7 @@ class _HeroSectionState extends State<HeroSection>
           children: const [
             _SocialIcon(
               imagePath: 'assets/images/icon/github.png',
-              url: 'https:github.com/Anggimuhamadn',
+              url: 'https://github.com/Anggimuhamadn?tab=repositories',
               tooltip: 'GitHub',
             ),
             SizedBox(width: 14),
