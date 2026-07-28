@@ -139,7 +139,7 @@ class _ProjectSectionState extends State<ProjectSection>
                                   color: Color(0xff00D2FF), size: 14),
                               const SizedBox(width: 8),
                               Text(
-                                "BENTO SHOWCASE",
+                                "Proyek Pilihan",
                                 style: GoogleFonts.inter(
                                   color: const Color(0xff00D2FF),
                                   fontSize: 11,
@@ -154,21 +154,7 @@ class _ProjectSectionState extends State<ProjectSection>
                       const SizedBox(height: 20),
 
                       /// HEADLINE TITLE
-                      _buildAnimatedChild(
-                        start: 0.1,
-                        end: 0.4,
-                        child: Text(
-                          "Proyek Pilihan Eksklusif.",
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: isDesktop ? 36 : 26,
-                            fontWeight: FontWeight.w900,
-                            height: 1.2,
-                            letterSpacing: -0.8,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 50),
+
 
                       /// =========================================================================
                       /// BENTO GRID DENGAN ANIMASI SINEMATIK SATU-PER-SATU

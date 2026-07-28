@@ -70,7 +70,7 @@ class _MainHomePageState extends State<MainHomePage> {
           // ===================================================================
           SingleChildScrollView(
             controller: _scrollController,
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
                 // Transparan spacer setinggi layar (biar Hero kelihatan utuh dulu)

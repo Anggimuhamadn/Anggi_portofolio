@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isScrolled = false;
-  int _currentActiveIndex = -1; // -1 = Hero Section
+  int _currentActiveIndex = -1; // -1 = Hero Section Active
 
   final ScrollController _scrollController = ScrollController();
 
@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
   void _onScroll() {
     if (!mounted) return;
 
-    // Tracking offset scroll untuk efek Parallax & Navbar background state
     double offset = _scrollController.offset;
     setState(() {
       _scrollOffset = offset;
@@ -68,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // LOGIC SAKTI DETEKSI SECTION PAS DI-SCROLL MANUAL
+  // LOGIC DETEKSI SECTION AKTIF PAS DI-SCROLL
   void _checkActiveSection() {
     double scrollOffset = _scrollController.offset;
 
@@ -80,17 +79,16 @@ class _HomePageState extends State<HomePage> {
 
     int newIndex = -1;
 
-    // Cek posisi scroll dari paling bawah ke atas:
     if (contactTop != null && scrollOffset >= (contactTop - 250)) {
-      newIndex = 4; // Contact Aktif
+      newIndex = 4; // Contact
     } else if (certTop != null && scrollOffset >= (certTop - 250)) {
-      newIndex = 3; // Certifications Aktif
+      newIndex = 3; // Certifications
     } else if (projectsTop != null && scrollOffset >= (projectsTop - 250)) {
-      newIndex = 2; // Projects Aktif
+      newIndex = 2; // Projects
     } else if (experienceTop != null && scrollOffset >= (experienceTop - 250)) {
-      newIndex = 1; // Experience Aktif
+      newIndex = 1; // Experience
     } else if (aboutTop != null && scrollOffset >= (aboutTop - 250)) {
-      newIndex = 0; // About Aktif
+      newIndex = 0; // About
     }
 
     if (_currentActiveIndex != newIndex) {
@@ -113,93 +111,95 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // PERHITUNGAN ANIMASI EFEK SCROLL GITHUB (HERO PINNED + SHRINK + FADE)
-    double heroProgress = (_scrollOffset / screenHeight).clamp(0.0, 1.0);
-    double heroScale = 1.0 - (heroProgress * 0.08); // Hero mengecil dikit pas discroll (100% -> 92%)
-    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0); // Hero meredup pelan
-    double heroTranslateY = _scrollOffset * 0.35; // Pergerakan parallax lambat
+    // PERHITUNGAN ANIMASI PARALLAX SHRINK GITHUB
+    double heroProgress = (_scrollOffset / (screenHeight * 0.7)).clamp(0.0, 1.0);
+    double heroScale = 1.0 - (heroProgress * 0.08); // Hero mengecil halus (100% -> 92%)
+    double heroOpacity = (1.0 - (heroProgress * 1.2)).clamp(0.0, 1.0); // Meradup pelan
+    double heroTranslateY = _scrollOffset * 0.40; // Pergerakan parallax melayang
 
     return Scaffold(
       backgroundColor: const Color(0xff090D16),
       body: Stack(
         children: [
           // ===================================================================
-          // LAYER 1: HERO SECTION STICKY DI BELAKANG (PARALLAX GITHUB)
-          // ===================================================================
-          Positioned(
-            top: -heroTranslateY,
-            left: 0,
-            right: 0,
-            height: screenHeight,
-            child: Opacity(
-              opacity: heroOpacity,
-              child: Transform.scale(
-                scale: heroScale,
-                child: HeroSection(key: _heroKey),
-              ),
-            ),
-          ),
-
-          // ===================================================================
-          // LAYER 2: SECTION-SECTION BAWAH NAIK MENUTUPI HERO (OVERLAP SHEET)
+          // 1. SINGLE CHILD SCROLL VIEW UTAMA
           // ===================================================================
           SingleChildScrollView(
             controller: _scrollController,
             physics: const BouncingScrollPhysics(),
-            child: Column(
+            child: Stack(
               children: [
-                // Transparan spacer setinggi layar monitor biar Hero keliatan dulu
-                SizedBox(height: screenHeight),
-
-                // KARTU PENUTUP UTAMA (OVERLAP SHEET ALA GITHUB)
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xff090D16), // Solid Cyber Black Penutup
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
-                    border: Border(
-                      top: BorderSide(
-                        color: const Color(0xff00D2FF).withOpacity(0.35), // Line Glow Neon Cyan
-                        width: 1.5,
+                // -------------------------------------------------------------
+                // LAYER A: HERO SECTION (BEBAS DARI LAYER PENUTUP & INTERAKSI 100%)
+                // -------------------------------------------------------------
+                Transform.translate(
+                  offset: Offset(0, heroTranslateY),
+                  child: Opacity(
+                    opacity: heroOpacity,
+                    child: Transform.scale(
+                      scale: heroScale,
+                      child: SizedBox(
+                        height: screenHeight,
+                        child: HeroSection(key: _heroKey),
                       ),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.9),
-                        blurRadius: 50,
-                        spreadRadius: 10,
-                        offset: const Offset(0, -20),
-                      ),
-                    ],
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 18),
+                ),
 
-                      // Aksesori Handle Bar Khas GitHub / BottomSheet Modern
-                      Center(
-                        child: Container(
-                          width: 48,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                // -------------------------------------------------------------
+                // LAYER B: OVERLAP SHEET KARTU PENUTUP (NAIK MENUTUPI HERO)
+                // -------------------------------------------------------------
+                Padding(
+                  padding: EdgeInsets.only(top: screenHeight * 0.99), // Atau paka screenHeight murni
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xff090D16), // Solid Cyber Black Penutup
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                      border: Border(
+                        top: BorderSide(
+                          color: const Color(0xff00D2FF).withOpacity(0.35),
+                          width: 1.5,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.9),
+                          blurRadius: 50,
+                          spreadRadius: 10,
+                          offset: const Offset(0, -20),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 18),
 
-                      // RANGKAIAN SECTION PORTFOLIO LU (DENGAN GLOBAL KEY TERPASANG PRESI)
-                      AboutSection(key: _aboutKey),
-                      ExperienceSection(key: _experienceKey),
-                      ProjectSection(key: _projectsKey),
-                      CertificationSection(key: _certificationKey),
-                      ContactChatSection(key: _contactKey),
+                        // Handle bar UI ala GitHub
+                        Center(
+                          child: Container(
+                            width: 48,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
 
-                      const SizedBox(height: 80),
-                    ],
+                        // RANGKAIAN SECTION PORTFOLIO
+                        AboutSection(key: _aboutKey),
+                        ExperienceSection(key: _experienceKey),
+                        ProjectSection(key: _projectsKey),
+                        CertificationSection(key: _certificationKey),
+                        ContactChatSection(key: _contactKey),
+
+                        const SizedBox(height: 80),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -207,7 +207,7 @@ class _HomePageState extends State<HomePage> {
           ),
 
           // ===================================================================
-          // LAYER 3: STICKY NAVBAR MELAYANG DI PALING ATAS
+          // 2. STICKY NAVBAR MELAYANG DI ATAS
           // ===================================================================
           Positioned(
             top: 0,

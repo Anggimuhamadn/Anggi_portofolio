@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:html' as html; // Buat buka link sosmed di tab baru browser
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_size.dart';
 import '../../data/app_data.dart';
@@ -15,12 +15,10 @@ class HeroSection extends StatefulWidget {
 }
 
 class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStateMixin {
-  // Variabel tracking 3D Parallax pada foto
   double _rotateX = 0.0;
   double _rotateY = 0.0;
   bool _isHovered = false;
 
-  // Controller buat animasi Pulse Glow pada Intro Badge
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
@@ -45,204 +43,131 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          textSelectionTheme: TextSelectionThemeData(
-            selectionColor: const Color(0xff00D2FF).withOpacity(0.25),
-            selectionHandleColor: const Color(0xff00D2FF),
+    return Stack(
+      children: [
+        /// BASE BACKGROUND MASTER
+        Positioned.fill(
+          child: Container(
+            color: const Color(0xff090D16),
           ),
         ),
-        child: Stack(
-          children: [
-            /// ==========================================================
-            /// BASE BACKGROUND MASTER: Deep Cyber Black (Dark Glossy)
-            /// ==========================================================
-            Positioned.fill(
-              child: Container(
-                color: const Color(0xff090D16),
-              ),
-            ),
 
-            /// GRID PATTERN BACKDROP
-            Positioned.fill(
-              child: CustomPaint(
-                painter: HeroGridPainter(),
-              ),
-            ),
-
-            /// ==========================================================
-            /// CYBER GLOW MESH BACKGROUND (KABUT NEON SAMAR)
-            /// ==========================================================
-            Positioned(
-              top: -150,
-              left: -100,
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 130, sigmaY: 130),
-                child: Container(
-                  width: 550,
-                  height: 550,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: RadialGradient(
-                      colors: [
-                        const Color(0xff00D2FF).withOpacity(.25),
-                        const Color(0xff0066FF).withOpacity(.08),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            Positioned(
-              right: -150,
-              bottom: -150,
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 140, sigmaY: 140),
-                child: Container(
-                  width: 650,
-                  height: 650,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: RadialGradient(
-                      colors: [
-                        const Color(0xff6366F1).withOpacity(.18),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            /// ==========================================================
-            /// MAIN CONTENT LAYOUT (RESPONSIF & ANTI OVERFLOW)
-            /// ==========================================================
-            LayoutBuilder(
-              builder: (context, constraints) {
-                double screenWidth = MediaQuery.of(context).size.width;
-                bool isDesktop = screenWidth > 950;
-
-                return Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    vertical: isDesktop ? 80 : 40, // Padding fleksibel
-                  ),
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: AppSize.maxWidth,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isDesktop ? 40 : 20,
-                        ),
-                        child: isDesktop
-                            ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            /// SISI KIRI: DATA DIRI
-                            Expanded(
-                              flex: 5,
-                              child: _buildLeftContent(isDesktop),
-                            ),
-                            const SizedBox(width: 30),
-
-                            /// SISI KANAN: FOTO
-                            Expanded(
-                              flex: 5,
-                              child: _buildRightPhoto(screenWidth),
-                            ),
-                          ],
-                        )
-                            : Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildLeftContent(isDesktop),
-                            const SizedBox(height: 32),
-                            _buildRightPhoto(screenWidth),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+        /// GRID PATTERN BACKDROP
+        Positioned.fill(
+          child: CustomPaint(
+            painter: HeroGridPainter(),
+          ),
         ),
-      ),
-    );
-  }
 
-  /// =========================================================================
-  /// WIDGET SISI KIRI: DATA DIRI + INTRO BADGE + SOSMED
-  /// =========================================================================
-  Widget _buildLeftContent(bool isDesktop) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min, // Biar gak serakah narik space vertikal
-      children: [
-        // 1. PULSE GLOW INTRO BADGE
-        AnimatedBuilder(
-          animation: _pulseController,
-          builder: (context, child) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+        /// CYBER GLOW MESH BACKGROUND
+        Positioned(
+          top: -150,
+          left: -100,
+          child: ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 130, sigmaY: 130),
+            child: Container(
+              width: 550,
+              height: 550,
               decoration: BoxDecoration(
-                color: const Color(0xff00D2FF).withOpacity(0.06),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: const Color(0xff00D2FF).withOpacity(0.3 * _pulseAnimation.value),
-                  width: 1.2,
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    const Color(0xff00D2FF).withOpacity(.25),
+                    const Color(0xff0066FF).withOpacity(.08),
+                    Colors.transparent,
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xff00D2FF).withOpacity(0.15 * _pulseAnimation.value),
-                    blurRadius: 12,
-                    spreadRadius: 1,
-                  ),
-                ],
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff00D2FF),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xff00D2FF).withOpacity(_pulseAnimation.value),
-                          blurRadius: 8,
-                          spreadRadius: 2,
+            ),
+          ),
+        ),
+
+        Positioned(
+          right: -150,
+          bottom: -150,
+          child: ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 140, sigmaY: 140),
+            child: Container(
+              width: 650,
+              height: 650,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    const Color(0xff6366F1).withOpacity(.18),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        /// MAIN CONTENT LAYOUT
+        LayoutBuilder(
+          builder: (context, constraints) {
+            double screenWidth = MediaQuery.of(context).size.width;
+            bool isDesktop = screenWidth > 950;
+
+            return Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                vertical: isDesktop ? 80 : 40,
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: AppSize.maxWidth,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isDesktop ? 40 : 20,
+                    ),
+                    child: isDesktop
+                        ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: _buildLeftContent(isDesktop),
                         ),
+                        const SizedBox(width: 30),
+                        Expanded(
+                          flex: 5,
+                          child: _buildRightPhoto(screenWidth),
+                        ),
+                      ],
+                    )
+                        : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildLeftContent(isDesktop),
+                        const SizedBox(height: 32),
+                        _buildRightPhoto(screenWidth),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    "WELCOME TO MY PORTFOLIO",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xff00D2FF),
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                ],
+                ),
               ),
             );
           },
         ),
+      ],
+    );
+  }
 
-        const SizedBox(height: 18), // Spasi yang pas & aman
+  /// WIDGET SISI KIRI
+  Widget _buildLeftContent(bool isDesktop) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // 1. PULSE GLOW INTRO BADGE
 
-        // 2. NAMA FULL GRADASI (DIBUAT ADAPTIF)
+
+        const SizedBox(height: 18),
+
+        // 2. NAMA FULL GRADASI
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
             colors: [
@@ -257,7 +182,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
             "Anggi Muhamad Nawawi",
             style: GoogleFonts.inter(
               color: Colors.white,
-              fontSize: isDesktop ? 52 : 38, // Auto penyesuaian font
+              fontSize: isDesktop ? 52 : 38,
               fontWeight: FontWeight.w900,
               letterSpacing: -1.2,
               height: 1.1,
@@ -285,7 +210,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 
         const SizedBox(height: 16),
 
-        // 4. SUBTITLE
+        // 4. SUBTITLE (DIBIKIN TERANG MENYALA)
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 540),
           child: Text(
@@ -293,7 +218,8 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
             style: GoogleFonts.inter(
               fontSize: 15,
               height: 1.6,
-              color: const Color(0xff94A3B8),
+              color: const Color(0xff94A3B8), // TERANG ABU-ABU PUTIH
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -301,26 +227,31 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
         const SizedBox(height: 24),
 
         // 5. ROW SOSMED
-        const Row(
-          children: [
+        Row(
+          children: const [
             _SocialIcon(
               imagePath: 'assets/images/icon/github.png',
-              url: 'https://github.com/AnggiM',
+              url: 'https://github.com/Anggimuhamadn',
+              tooltip: 'GitHub',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/i.png',
-              url: 'https://www.linkedin.com/in/anggi-muhamad-nawawi-11944028b/',
+              url: 'https://www.instagram.com/dvlrspctg/?hl=en',
+              tooltip: 'LinkedIn',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/w.png',
-              url: 'https://wa.me/628xxxxxxxxxx', // Isu nomor WA lu di sini
+              // Format: https://wa.me/<nomor_hp>?text=<pesan_otomatis>
+              url: 'https://wa.me/6283127152809?text=Halo%20Anggi,%20saya%20tertarik%20untuk%20discuss%20project%20atau%20bekerja%20sama!',
+              tooltip: 'WhatsApp',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/l.png',
-              url: 'https://instagram.com/AnggiM',
+              url: 'https://www.linkedin.com/in/anggi-muhamad-nawawi/',
+              tooltip: 'Instagram',
             ),
           ],
         ),
@@ -333,9 +264,7 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
     );
   }
 
-  /// =========================================================================
-  /// WIDGET SISI KANAN: FOTO PARALLAX 3D (UKURAN NESTED ADAPTIF)
-  /// =========================================================================
+  /// WIDGET SISI KANAN
   Widget _buildRightPhoto(double screenWidth) {
     double photoSize = screenWidth > 1200 ? 420 : (screenWidth > 950 ? 360 : 320);
 
@@ -371,21 +300,6 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
             height: photoSize,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
-              color: const Color(0xff111827).withOpacity(0.40),
-              border: Border.all(
-                color: _isHovered
-                    ? const Color(0xff00D2FF).withOpacity(.55)
-                    : Colors.white.withOpacity(0.08),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff00D2FF).withOpacity(_isHovered ? .28 : .06),
-                  blurRadius: _isHovered ? 60 : 45,
-                  spreadRadius: _isHovered ? 4 : 1,
-                  offset: const Offset(0, 12),
-                )
-              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(38.5),
@@ -461,13 +375,18 @@ class _HeroSectionState extends State<HeroSection> with SingleTickerProviderStat
 }
 
 // =========================================================================
-// WIDGET COMPONENT: CUSTOM SOCIAL ICON CARDS WITH CLICK HANDLER
+// WIDGET SOCIAL ICON DENGAN BACKGROUND TERANG
 // =========================================================================
 class _SocialIcon extends StatefulWidget {
   final String imagePath;
   final String url;
+  final String tooltip;
 
-  const _SocialIcon({required this.imagePath, required this.url});
+  const _SocialIcon({
+    required this.imagePath,
+    required this.url,
+    required this.tooltip,
+  });
 
   @override
   State<_SocialIcon> createState() => _SocialIconState();
@@ -476,57 +395,83 @@ class _SocialIcon extends StatefulWidget {
 class _SocialIconState extends State<_SocialIcon> {
   bool _isHovered = false;
 
-  void _openUrl(String url) {
+  void _openUrl(String url) async {
+    final Uri uri = Uri.parse(url);
     try {
-      html.window.open(url, '_blank');
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        debugPrint('Could not launch $url');
+      }
     } catch (e) {
-      debugPrint('Error opening URL: $e');
+      debugPrint('Error launching url: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: () => _openUrl(widget.url),
+    return Tooltip(
+      message: widget.tooltip,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
-          transform: Matrix4.identity()..translate(0, _isHovered ? -5 : 0, 0),
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _isHovered
-                ? const Color(0xff00D2FF).withOpacity(0.08)
-                : const Color(0xff111827).withOpacity(0.4),
-            border: Border.all(
-              color: _isHovered
-                  ? const Color(0xff00D2FF).withOpacity(0.7)
-                  : Colors.white.withOpacity(0.06),
-              width: 1.4,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xff00D2FF).withOpacity(_isHovered ? 0.35 : 0.0),
-                blurRadius: 18,
-                spreadRadius: 1,
-              )
-            ],
-          ),
-          child: Center(
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              width: 22,
-              height: 22,
-              child: Image.asset(
-                widget.imagePath,
-                fit: BoxFit.contain,
-                color: _isHovered ? const Color(0xff00D2FF) : const Color(0xff94A3B8),
-                colorBlendMode: BlendMode.srcIn,
+          transform: Matrix4.identity()..translate(0, _isHovered ? -8 : 0, 0),
+          width: 50,
+          height: 50,
+          child: Material(
+            color: Colors.transparent,
+            shape: const CircleBorder(),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: () => _openUrl(widget.url),
+              onHover: (hovering) {
+                setState(() => _isHovered = hovering);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                // DI DALAM _SocialIconState -> AnimatedContainer -> decoration: BoxDecoration(...)
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+
+                  // 1. Background lingkaran pake warna cyan/blue neon transparan tipis
+                  color: _isHovered
+                      ? const Color(0xff00D2FF).withOpacity(0.35)
+                      : const Color(0xff00D2FF).withOpacity(0.10), // Neon blue tipis saat biasa
+
+                  // 2. Border lingkaran diubah jadi BLUE NEON TEGAS
+                  border: Border.all(
+                    color: _isHovered
+                        ? const Color(0xff00D2FF)
+                        : const Color(0xff00D2FF).withOpacity(0.60), // Blue neon tegas menyala
+                    width: _isHovered ? 2.0 : 1.5,
+                  ),
+
+                  // 3. Efek Glow/Pijar Neon
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xff00D2FF).withOpacity(_isHovered ? 0.60 : 0.25), // Glow biru neon
+                      blurRadius: _isHovered ? 22 : 10,
+                      spreadRadius: _isHovered ? 3 : 1,
+                    ),
+                  ],
+
+                ),
+                child: Center(
+                  child: AnimatedScale(
+                    duration: const Duration(milliseconds: 200),
+                    scale: _isHovered ? 1.15 : 1.0,
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Image.asset(
+                        widget.imagePath,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -536,9 +481,7 @@ class _SocialIconState extends State<_SocialIcon> {
   }
 }
 
-// =========================================================================
-// CUSTOM PAINTER: CYBER MATRIX MESH GRID BACKGROUND
-// =========================================================================
+// CUSTOM PAINTER
 class HeroGridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
