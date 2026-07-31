@@ -20,7 +20,7 @@ class _ProjectSectionState extends State<ProjectSection>
     {
       "title": "SPK Perbaikan Fasilitas (Weighted Product)",
       "desc":
-          "Sistem Pendukung Keputusan berbasis web/mobile untuk menentukan prioritas perbaikan fasilitas menggunakan metode Weighted Product (WP).",
+      "Sistem Pendukung Keputusan berbasis web/mobile untuk menentukan prioritas perbaikan fasilitas menggunakan metode Weighted Product (WP).",
       "imageUrl": "assets/images/project/c.png",
       "tags": ["Mobile Dev", "Data Management", "Process Automation"],
       "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
@@ -29,7 +29,7 @@ class _ProjectSectionState extends State<ProjectSection>
     {
       "title": "Security Logbook & Patrol management",
       "desc":
-          " Aplikasi mobile digitalisasi operasional kemanan fisik,Mengintegrasikan pencatatan real-time, pelaporan insiden presisi,dan manajemen data akses terpusat.",
+      "Aplikasi mobile digitalisasi operasional kemanan fisik, Mengintegrasikan pencatatan real-time, pelaporan insiden presisi, dan manajemen data akses terpusat.",
       "imageUrl": "assets/images/project/b.jpeg",
       "tags": ["Decision Support System", "Algorithm", "UI/UX"],
       "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
@@ -38,7 +38,7 @@ class _ProjectSectionState extends State<ProjectSection>
     {
       "title": "Report",
       "desc":
-          "Aplikasi laporan bulanan dengan dilengkapi share pdf dan word dengan fromat menyesuaikan kebutuhan.",
+      "Aplikasi laporan bulanan dengan dilengkapi share pdf dan word dengan format menyesuaikan kebutuhan.",
       "imageUrl": "assets/images/project/d.jpeg",
       "alignment": Alignment.center,
       "tags": ["Flutter", "Bloc", "Node.js"],
@@ -47,7 +47,8 @@ class _ProjectSectionState extends State<ProjectSection>
     },
     {
       "title": "Visitor & Parking Registration System",
-      "desc": "Sistem manajemen registrasi pengunjung dan kendaraan area terbatas. Dilengkapi validasi plat nomor otomatis, cetak pass masuk digital, serta pemantauan kuota parkir real-time.",
+      "desc":
+      "Sistem manajemen registrasi pengunjung dan kendaraan area terbatas. Dilengkapi validasi plat nomor otomatis, cetak pass masuk digital, serta pemantauan kuota parkir real-time.",
       "imageUrl": "assets/images/project/e.png",
       "tags": ["Flutter", "Riverpod", "REST API"],
       "githubUrl": "https://github.com/Anggimuhamadn?tab=repositories",
@@ -111,8 +112,8 @@ class _ProjectSectionState extends State<ProjectSection>
 
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: isDesktop ? 80 : 24,
-                vertical: 120,
+                horizontal: isDesktop ? 80 : 20,
+                vertical: isDesktop ? 120 : 60,
               ),
               child: Center(
                 child: ConstrainedBox(
@@ -162,79 +163,79 @@ class _ProjectSectionState extends State<ProjectSection>
 
                       isDesktop
                           ? Column(
-                              children: [
-                                _buildAnimatedChild(
-                                  start: 0.2,
-                                  end: 0.6,
-                                  child: _GlassBentoCard(
-                                    project: projects[0],
-                                    isFeatured: true,
-                                  ),
-                                ),
-                                const SizedBox(height: 24),
+                        children: [
+                          _buildAnimatedChild(
+                            start: 0.2,
+                            end: 0.6,
+                            child: _GlassBentoCard(
+                              project: projects[0],
+                              isFeatured: true,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
 
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: _buildAnimatedChild(
-                                        start: 0.35,
-                                        end: 0.75,
-                                        child: _GlassBentoCard(
-                                          project: projects[1],
-                                          isFeatured: false,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 24),
-                                    Expanded(
-                                      child: _buildAnimatedChild(
-                                        start: 0.50,
-                                        end: 0.90,
-                                        child: _GlassBentoCard(
-                                          project: projects[2],
-                                          isFeatured: false,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 24),
-                                    Expanded(
-                                      child: _buildAnimatedChild(
-                                        start: 0.65,
-                                        end: 1.0,
-                                        child: _GlassBentoCard(
-                                          project: projects[3],
-                                          isFeatured: false,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          : ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: projects.length,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 24),
-                              itemBuilder: (context, index) {
-                                final double start = (0.2 + (index * 0.15))
-                                    .clamp(0.0, 0.7);
-                                final double end = (start + 0.35).clamp(
-                                  0.0,
-                                  1.0,
-                                );
-
-                                return _buildAnimatedChild(
-                                  start: start,
-                                  end: end,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.35,
+                                  end: 0.75,
                                   child: _GlassBentoCard(
-                                    project: projects[index],
+                                    project: projects[1],
                                     isFeatured: false,
                                   ),
-                                );
-                              },
+                                ),
+                              ),
+                              const SizedBox(width: 24),
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.50,
+                                  end: 0.90,
+                                  child: _GlassBentoCard(
+                                    project: projects[2],
+                                    isFeatured: false,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 24),
+                              Expanded(
+                                child: _buildAnimatedChild(
+                                  start: 0.65,
+                                  end: 1.0,
+                                  child: _GlassBentoCard(
+                                    project: projects[3],
+                                    isFeatured: false,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                          : ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: projects.length,
+                        separatorBuilder: (_, __) =>
+                        const SizedBox(height: 24),
+                        itemBuilder: (context, index) {
+                          final double start = (0.2 + (index * 0.15))
+                              .clamp(0.0, 0.7);
+                          final double end = (start + 0.35).clamp(
+                            0.0,
+                            1.0,
+                          );
+
+                          return _buildAnimatedChild(
+                            start: start,
+                            end: end,
+                            child: _GlassBentoCard(
+                              project: projects[index],
+                              isFeatured: false,
                             ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -257,20 +258,20 @@ class _ProjectSectionState extends State<ProjectSection>
     );
 
     final Animation<Offset> slideAnim =
-        Tween<Offset>(begin: const Offset(0.0, 0.20), end: Offset.zero).animate(
-          CurvedAnimation(
-            parent: _animController,
-            curve: Interval(start, end, curve: Curves.easeOutCubic),
-          ),
-        );
+    Tween<Offset>(begin: const Offset(0.0, 0.20), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: Interval(start, end, curve: Curves.easeOutCubic),
+      ),
+    );
 
     final Animation<double> scaleAnim = Tween<double>(begin: 0.92, end: 1.0)
         .animate(
-          CurvedAnimation(
-            parent: _animController,
-            curve: Interval(start, end, curve: Curves.easeOutBack),
-          ),
-        );
+      CurvedAnimation(
+        parent: _animController,
+        curve: Interval(start, end, curve: Curves.easeOutBack),
+      ),
+    );
 
     return AnimatedBuilder(
       animation: _animController,
@@ -302,9 +303,54 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
   bool _isHovered = false;
 
   void _openLink(String url) {
-    html.AnchorElement anchorElement = html.AnchorElement(href: url);
+    String formattedUrl = url.trim();
+    if (!formattedUrl.startsWith('http://') &&
+        !formattedUrl.startsWith('https://') &&
+        !formattedUrl.startsWith('mailto:')) {
+      formattedUrl = 'https://$formattedUrl';
+    }
+    html.AnchorElement anchorElement = html.AnchorElement(href: formattedUrl);
     anchorElement.target = "_blank";
     anchorElement.click();
+  }
+
+  // WIDGET IMAGE LOADER PINTAR (Asset vs Network)
+  Widget _buildProjectImage({Alignment alignment = Alignment.center}) {
+    final String path = widget.project["imageUrl"] ?? "";
+    final Alignment imgAlignment =
+        widget.project["alignment"] ?? alignment;
+
+    if (path.startsWith("assets/")) {
+      return Image.asset(
+        path,
+        fit: BoxFit.cover,
+        alignment: imgAlignment,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: const Color(0xff1E293B),
+            child: const Center(
+              child: Icon(Icons.broken_image_rounded,
+                  color: Colors.white38, size: 40),
+            ),
+          );
+        },
+      );
+    } else {
+      return Image.network(
+        path,
+        fit: BoxFit.cover,
+        alignment: imgAlignment,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: const Color(0xff1E293B),
+            child: const Center(
+              child: Icon(Icons.broken_image_rounded,
+                  color: Colors.white38, size: 40),
+            ),
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -319,7 +365,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeOutCubic,
-            padding: EdgeInsets.all(widget.isFeatured ? 28 : 22),
+            padding: EdgeInsets.all(widget.isFeatured ? 28 : 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: const Color(
@@ -366,10 +412,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                       scale: _isHovered ? 1.05 : 1.0,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOutCubic,
-                      child: Image.network(
-                        widget.project["imageUrl"],
-                        fit: BoxFit.cover,
-                      ),
+                      child: _buildProjectImage(),
                     ),
                   ),
                   Positioned.fill(
@@ -464,10 +507,8 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                     scale: _isHovered ? 1.05 : 1.0,
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeOutCubic,
-                    child: Image.network(
-                      widget.project["imageUrl"],
-                      fit: BoxFit.cover,
-                      alignment: const Alignment(0.0, -0.100),
+                    child: _buildProjectImage(
+                      alignment: const Alignment(0.0, -0.10),
                     ),
                   ),
                 ),
@@ -506,7 +547,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
           overflow: TextOverflow.ellipsis,
           style: GoogleFonts.inter(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             letterSpacing: -0.3,
           ),
@@ -519,11 +560,11 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
           overflow: TextOverflow.ellipsis,
           style: GoogleFonts.inter(
             color: const Color(0xff94A3B8),
-            fontSize: 14,
-            height: 1.55,
+            fontSize: 13,
+            height: 1.5,
           ),
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 20),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -547,7 +588,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
 
   Widget _buildGlassTag(String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: const Color(0xff00D2FF).withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
@@ -557,7 +598,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
         text,
         style: GoogleFonts.inter(
           color: const Color(0xff00D2FF),
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: FontWeight.w600,
         ),
       ),

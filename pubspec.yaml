@@ -31,6 +31,7 @@ flutter:
     - assets/images/profile/
     - assets/images/icon/
     - assets/images/sertifikat/
+    - assets/images/project/
 
 
   # FIX: Indentasi fonts digeser masuk ke dalam scope 'flutter:' biar dibaca framework!

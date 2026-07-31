@@ -211,7 +211,7 @@ class _HeroSectionState extends State<HeroSection>
             _SocialIcon(
               imagePath: 'assets/images/icon/i.png',
               url: 'https:www.instagram.com/dvlrspctg/?hl=en',
-              tooltip: 'LinkedIn',
+              tooltip: 'Instagram',
             ),
             SizedBox(width: 14),
             _SocialIcon(
@@ -224,7 +224,7 @@ class _HeroSectionState extends State<HeroSection>
             _SocialIcon(
               imagePath: 'assets/images/icon/l.png',
               url: 'https:www.linkedin.com/in/anggi-muhamad-nawawi/',
-              tooltip: 'Instagram',
+              tooltip: 'Linkedin',
             ),
           ],
         ),
