@@ -384,9 +384,9 @@ class _SocialIconState extends State<_SocialIcon> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOutCubic,
-          transform: Matrix4.identity()..translate(0, _isHovered ? -8 : 0, 0),
-          width: 50,
-          height: 50,
+          transform: Matrix4.identity()..translate(0, _isHovered ? -5 : 0, 0),
+          width: 46,
+          height: 46,
           child: Material(
             color: Colors.transparent,
             shape: const CircleBorder(),
@@ -400,33 +400,45 @@ class _SocialIconState extends State<_SocialIcon> {
                 duration: const Duration(milliseconds: 200),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  // Background lebih dark & elegan pas diam, glow cyan pas di-hover
                   color: _isHovered
-                      ? const Color(0xff00D2FF).withOpacity(0.35)
-                      : const Color(0xff00D2FF).withOpacity(0.10),
+                      ? const Color(0xff00D2FF).withOpacity(0.18)
+                      : const Color(0xff111827).withOpacity(0.60),
                   border: Border.all(
                     color: _isHovered
                         ? const Color(0xff00D2FF)
-                        : const Color(0xff00D2FF).withOpacity(0.60),
-                    width: _isHovered ? 2.0 : 1.5,
+                        : Colors.white.withOpacity(0.12),
+                    width: _isHovered ? 1.5 : 1.0,
                   ),
                   boxShadow: [
-                    BoxShadow(
-                      color: const Color(
-                        0xff00D2FF,
-                      ).withOpacity(_isHovered ? 0.60 : 0.25),
-                      blurRadius: _isHovered ? 22 : 10,
-                      spreadRadius: _isHovered ? 3 : 1,
-                    ),
+                    if (_isHovered)
+                      BoxShadow(
+                        color: const Color(0xff00D2FF).withOpacity(0.40),
+                        blurRadius: 16,
+                        spreadRadius: 1,
+                      ),
                   ],
                 ),
                 child: Center(
                   child: AnimatedScale(
                     duration: const Duration(milliseconds: 200),
-                    scale: _isHovered ? 1.15 : 1.0,
+                    scale: _isHovered ? 1.10 : 1.0,
                     child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: Image.asset(widget.imagePath, fit: BoxFit.contain),
+                      width: 22,
+                      height: 22,
+                      // ColorFilter bikin gambar icon PNG item lu dipaksa jadi PUTIH / CYAN NEON!
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          _isHovered
+                              ? const Color(0xff00D2FF)
+                              : Colors.white.withOpacity(0.85),
+                          BlendMode.srcIn,
+                        ),
+                        child: Image.asset(
+                          widget.imagePath,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
                   ),
                 ),

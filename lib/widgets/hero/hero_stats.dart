@@ -36,7 +36,7 @@ class HeroStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        item("3+", "Projects"),
+        item("4+", "Projects"),
         const SizedBox(width: 40),
         item("10+", "Technologies"),
         const SizedBox(width: 40),

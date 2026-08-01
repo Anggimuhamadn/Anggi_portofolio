@@ -131,12 +131,13 @@ class _AboutSectionState extends State<AboutSection>
 
         // TEKS SEKARANG STATIS & RINGAN
         const Text(
-          "Halo! Gua seorang Software Developer yang berfokus ngebantu startup, bisnis, "
-              "dan enterprise buat nge-scale produk digital mereka. Gak cuma sekadar sistem "
-              "yang jalan lancar, tapi juga didesain dengan UI/UX yang intuitif dan bikin user betah.\n\n"
-              "Lu fokus ke visinya, gua yang beresin baris kodenya. Berawal dari rasa penasaran "
-              "gimana cara kerja teknologi di balik layar, sekarang gua fokus membangun arsitektur "
-              "clean-code yang scalable, aman, dan siap untuk tahap production.",
+          "Berawal dari rasa penasaran gimana sebuah aplikasi bekerja di balik layar,"
+              " sekarang gua berfokus merancang dan mengembangkan aplikasi mobile"
+              " berbasis Flutter dengan arsitektur yang clean, performa responsif,"
+              " serta UI/UX yang intuitif, "
+          "Gua suka mengubah kebutuhan kompleks jadi solusi digital yang "
+         "simpel, rapi, dan siap pakai baik untuk skala proyek independen,"
+         "operasional, bisnis, maupun integrasi sistem.",
           style: TextStyle(
             fontFamily: 'Inter',
             color: Color(0xff94A3B8),

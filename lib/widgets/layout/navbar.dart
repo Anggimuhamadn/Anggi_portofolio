@@ -23,7 +23,7 @@ class _NavbarState extends State<Navbar> {
   bool _isResumeHovered = false;
 
   void _downloadResume() async {
-    const String resumeUrl = "assets/CV.AnggiMNn.pdf";
+    const String resumeUrl = "assets/CV.AnggiMNfixnew.pdf";
     final Uri uri = Uri.parse(resumeUrl);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       debugPrint('Could not launch $resumeUrl');
@@ -93,10 +93,10 @@ class _NavbarState extends State<Navbar> {
       ),
       trailing: isActive
           ? const Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Color(0xff00D2FF),
-              size: 14,
-            )
+        Icons.arrow_forward_ios_rounded,
+        color: Color(0xff00D2FF),
+        size: 14,
+      )
           : null,
     );
   }
@@ -141,12 +141,12 @@ class _NavbarState extends State<Navbar> {
                 boxShadow: widget.isScrolled
                     ? []
                     : [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
-                          blurRadius: 30,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 30,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -169,13 +169,13 @@ class _NavbarState extends State<Navbar> {
                               end: Alignment.bottomRight,
                               colors: _isLogoHovered
                                   ? [
-                                      const Color(0xff00D2FF),
-                                      const Color(0xff6366F1),
-                                    ]
+                                const Color(0xff00D2FF),
+                                const Color(0xff6366F1),
+                              ]
                                   : [
-                                      const Color(0xff6366F1),
-                                      const Color(0xff00D2FF),
-                                    ],
+                                const Color(0xff6366F1),
+                                const Color(0xff00D2FF),
+                              ],
                             ),
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
@@ -240,6 +240,9 @@ class _NavbarState extends State<Navbar> {
                     const Spacer(),
                     _buildResumeButton(),
                   ] else ...[
+                    // TAMPILAN HEADER MOBILE: TOMBOL RESUME RINGKAS + IKON MENU
+                    _buildMobileResumeButton(),
+                    const SizedBox(width: 10),
                     IconButton(
                       onPressed: () => _openMobileMenu(context),
                       icon: const Icon(
@@ -253,6 +256,52 @@ class _NavbarState extends State<Navbar> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  // WIDGET TOMBOL RESUME RINGKAS KHUSUS MOBILE HEADER
+  Widget _buildMobileResumeButton() {
+    return GestureDetector(
+      onTap: _downloadResume,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xff0088FF), Color(0xff4F46E5)],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xff00D2FF).withOpacity(0.25),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Text(
+              "CV",
+              style: TextStyle(
+                fontFamily: 'Inter',
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                letterSpacing: 0.5,
+              ),
+            ),
+            SizedBox(width: 4),
+            Icon(
+              Icons.north_east_rounded,
+              color: Colors.white,
+              size: 13,
+            ),
+          ],
         ),
       ),
     );
@@ -285,10 +334,10 @@ class _NavbarState extends State<Navbar> {
                     end: Alignment.bottomRight,
                     colors: _isResumeHovered
                         ? [
-                            const Color(0xff00D2FF),
-                            const Color(0xff6366F1),
-                            const Color(0xffEC4899),
-                          ]
+                      const Color(0xff00D2FF),
+                      const Color(0xff6366F1),
+                      const Color(0xffEC4899),
+                    ]
                         : [const Color(0xff0088FF), const Color(0xff4F46E5)],
                   ),
                   boxShadow: [

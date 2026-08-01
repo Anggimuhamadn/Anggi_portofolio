@@ -6,7 +6,7 @@ class AppData {
   static const role = "Mobile Application & Software Engineer";
 
   static const subtitle =
-      "Building modern mobile applications with clean architecture and intuitive user experiences";
+      "Building modern applications with clean architecture and intuitive user experiences";
   static const email = "your@email.com";
 
   static const github = "https:github.com/username";

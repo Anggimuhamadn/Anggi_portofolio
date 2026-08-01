@@ -134,16 +134,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                   ),
                   const SizedBox(height: 24),
 
-                  const Text(
-                    "Let's Connect.",
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Colors.white,
-                      fontSize: 38,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.8,
-                    ),
-                  ),
+
                   const SizedBox(height: 12),
                   const Text(
                     "Punya ide project atau sekadar mau ngobrol santai? Drop bensin lu di sini bre!",

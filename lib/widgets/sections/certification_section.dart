@@ -228,15 +228,7 @@ class _CertificationSectionState extends State<CertificationSection>
                         ),
                         const SizedBox(height: 16),
 
-                        Text(
-                          "Sertifikasi & Lisensi Resmi.",
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: isDesktop ? 32 : 24,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
+
                       ],
                     ),
 
