@@ -1,74 +1,6 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
-class TypewriterText extends StatefulWidget {
-  final String text;
-  final TextStyle style;
-  final Duration speed;
-  final bool startTrigger;
-
-  const TypewriterText({
-    super.key,
-    required this.text,
-    required this.style,
-    this.speed = const Duration(milliseconds: 20),
-    required this.startTrigger,
-  });
-
-  @override
-  State<TypewriterText> createState() => _TypewriterTextState();
-}
-
-class _TypewriterTextState extends State<TypewriterText> {
-  String _displayedText = "";
-  int _currentIndex = 0;
-  Timer? _timer;
-  bool _hasStarted = false;
-
-  @override
-  void didUpdateWidget(TypewriterText oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.startTrigger && !_hasStarted) {
-      _hasStarted = true;
-      _startTyping();
-    }
-  }
-
-  void _startTyping() {
-    _timer = Timer.periodic(widget.speed, (timer) {
-      if (_currentIndex < widget.text.length) {
-        if (mounted) {
-          setState(() {
-            _displayedText += widget.text[_currentIndex];
-            _currentIndex++;
-          });
-        }
-      } else {
-        _timer?.cancel();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      constraints: const BoxConstraints(minHeight: 120),
-      child: Text(
-        _displayedText.isEmpty ? " " : _displayedText,
-        style: widget.style,
-      ),
-    );
-  }
-}
 
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
@@ -130,20 +62,20 @@ class _AboutSectionState extends State<AboutSection>
             constraints: const BoxConstraints(maxWidth: 1200),
             child: isDesktop
                 ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(flex: 45, child: _buildInteractivePhotoLeft()),
-                      const SizedBox(width: 80),
-                      Expanded(flex: 55, child: _buildAboutTextRight()),
-                    ],
-                  )
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(flex: 45, child: _buildInteractivePhotoLeft()),
+                const SizedBox(width: 80),
+                Expanded(flex: 55, child: _buildAboutTextRight()),
+              ],
+            )
                 : Column(
-                    children: [
-                      _buildInteractivePhotoLeft(),
-                      const SizedBox(height: 50),
-                      _buildAboutTextRight(),
-                    ],
-                  ),
+              children: [
+                _buildInteractivePhotoLeft(),
+                const SizedBox(height: 50),
+                _buildAboutTextRight(),
+              ],
+            ),
           ),
         ),
       ),
@@ -197,16 +129,15 @@ class _AboutSectionState extends State<AboutSection>
         ),
         const SizedBox(height: 24),
 
-        TypewriterText(
-          startTrigger: _isVisible,
-          text:
-              "Halo! Gua seorang Software Developer yang berfokus ngebantu startup, bisnis, "
+        // TEKS SEKARANG STATIS & RINGAN
+        const Text(
+          "Halo! Gua seorang Software Developer yang berfokus ngebantu startup, bisnis, "
               "dan enterprise buat nge-scale produk digital mereka. Gak cuma sekadar sistem "
               "yang jalan lancar, tapi juga didesain dengan UI/UX yang intuitif dan bikin user betah.\n\n"
               "Lu fokus ke visinya, gua yang beresin baris kodenya. Berawal dari rasa penasaran "
               "gimana cara kerja teknologi di balik layar, sekarang gua fokus membangun arsitektur "
               "clean-code yang scalable, aman, dan siap untuk tahap production.",
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             color: Color(0xff94A3B8),
             fontSize: 16,
