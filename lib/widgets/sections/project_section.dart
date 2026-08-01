@@ -313,6 +313,29 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
     }
   }
 
+  // HELPER UNTUK CEK & RENDER GAMBAR DENGAN SAFE GUARD
+  Widget _buildSafeImage(String path, Alignment alignment) {
+    return Image.asset(
+      path,
+      fit: BoxFit.cover,
+      alignment: alignment,
+      errorBuilder: (context, error, stackTrace) {
+        // BILA ASSET EXTENSION SALAH ATAU BEDA KAPITAL, TAMPILKAN PLACEHOLDER RAPI
+        return Container(
+          color: const Color(0xff1E293B),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.image_not_supported_rounded, color: Color(0xff00D2FF), size: 36),
+              SizedBox(height: 6),
+              Text("Image Asset", style: TextStyle(color: Colors.white54, fontSize: 11)),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -375,11 +398,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                       scale: _isHovered ? 1.05 : 1.0,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOutCubic,
-                      child: Image.asset(
-                        widget.project["imageUrl"],
-                        fit: BoxFit.cover,
-                        alignment: imgAlignment,
-                      ),
+                      child: _buildSafeImage(widget.project["imageUrl"], imgAlignment),
                     ),
                   ),
                   Positioned.fill(
@@ -477,11 +496,7 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                     scale: _isHovered ? 1.05 : 1.0,
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeOutCubic,
-                    child: Image.asset(
-                      widget.project["imageUrl"],
-                      fit: BoxFit.cover,
-                      alignment: imgAlignment,
-                    ),
+                    child: _buildSafeImage(widget.project["imageUrl"], imgAlignment),
                   ),
                 ),
                 Positioned.fill(
