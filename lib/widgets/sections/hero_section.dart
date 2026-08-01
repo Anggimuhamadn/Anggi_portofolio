@@ -110,27 +110,27 @@ class _HeroSectionState extends State<HeroSection>
                     ),
                     child: isDesktop
                         ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: _buildLeftContent(isDesktop),
-                              ),
-                              const SizedBox(width: 30),
-                              Expanded(
-                                flex: 5,
-                                child: _buildRightPhoto(screenWidth),
-                              ),
-                            ],
-                          )
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: _buildLeftContent(isDesktop),
+                        ),
+                        const SizedBox(width: 30),
+                        Expanded(
+                          flex: 5,
+                          child: _buildRightPhoto(screenWidth),
+                        ),
+                      ],
+                    )
                         : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              _buildLeftContent(isDesktop),
-                              const SizedBox(height: 32),
-                              _buildRightPhoto(screenWidth),
-                            ],
-                          ),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildLeftContent(isDesktop),
+                        const SizedBox(height: 32),
+                        _buildRightPhoto(screenWidth),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -210,20 +210,19 @@ class _HeroSectionState extends State<HeroSection>
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/i.png',
-              url: 'https:www.instagram.com/dvlrspctg/?hl=en',
+              url: 'https://www.instagram.com/dvlrspctg/?hl=en', // FIX: Tambah //
               tooltip: 'Instagram',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/w.png',
-              url:
-                  'https:wa.me/6283127152809?text=Halo%20Anggi,%20saya%20tertarik%20untuk%20discuss%20project%20atau%20bekerja%20sama!',
+              url: 'https://wa.me/6283127152809?text=Halo%20Anggi,%20saya%20tertarik%20untuk%20discuss%20project%20atau%20bekerja%20sama!', // FIX: Tambah //
               tooltip: 'WhatsApp',
             ),
             SizedBox(width: 14),
             _SocialIcon(
               imagePath: 'assets/images/icon/l.png',
-              url: 'https:www.linkedin.com/in/anggi-muhamad-nawawi/',
+              url: 'https://www.linkedin.com/in/anggi-muhamad-nawawi/', // FIX: Tambah //
               tooltip: 'Linkedin',
             ),
           ],
@@ -399,21 +398,17 @@ class _SocialIconState extends State<_SocialIcon> {
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-
                   color: _isHovered
                       ? const Color(0xff00D2FF).withOpacity(0.35)
                       : const Color(0xff00D2FF).withOpacity(0.10),
-
                   border: Border.all(
                     color: _isHovered
                         ? const Color(0xff00D2FF)
                         : const Color(0xff00D2FF).withOpacity(0.60),
                     width: _isHovered ? 2.0 : 1.5,
                   ),
-
                   boxShadow: [
                     BoxShadow(
                       color: const Color(

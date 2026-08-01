@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectSection extends StatefulWidget {
   const ProjectSection({super.key});
@@ -302,54 +302,14 @@ class _GlassBentoCard extends StatefulWidget {
 class _GlassBentoCardState extends State<_GlassBentoCard> {
   bool _isHovered = false;
 
-  void _openLink(String url) {
-    String formattedUrl = url.trim();
-    if (!formattedUrl.startsWith('http://') &&
-        !formattedUrl.startsWith('https://') &&
-        !formattedUrl.startsWith('mailto:')) {
-      formattedUrl = 'https://$formattedUrl';
-    }
-    html.AnchorElement anchorElement = html.AnchorElement(href: formattedUrl);
-    anchorElement.target = "_blank";
-    anchorElement.click();
-  }
-
-  // WIDGET IMAGE LOADER PINTAR (Asset vs Network)
-  Widget _buildProjectImage({Alignment alignment = Alignment.center}) {
-    final String path = widget.project["imageUrl"] ?? "";
-    final Alignment imgAlignment =
-        widget.project["alignment"] ?? alignment;
-
-    if (path.startsWith("assets/")) {
-      return Image.asset(
-        path,
-        fit: BoxFit.cover,
-        alignment: imgAlignment,
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            color: const Color(0xff1E293B),
-            child: const Center(
-              child: Icon(Icons.broken_image_rounded,
-                  color: Colors.white38, size: 40),
-            ),
-          );
-        },
-      );
-    } else {
-      return Image.network(
-        path,
-        fit: BoxFit.cover,
-        alignment: imgAlignment,
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            color: const Color(0xff1E293B),
-            child: const Center(
-              child: Icon(Icons.broken_image_rounded,
-                  color: Colors.white38, size: 40),
-            ),
-          );
-        },
-      );
+  void _openLink(String urlString) async {
+    final Uri uri = Uri.parse(urlString);
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        debugPrint('Could not launch $urlString');
+      }
+    } catch (e) {
+      debugPrint('Error launching url: $e');
     }
   }
 
@@ -397,6 +357,9 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
   }
 
   Widget _buildFeaturedContent() {
+    final Alignment imgAlignment =
+        widget.project["alignment"] ?? Alignment.center;
+
     return Row(
       children: [
         Expanded(
@@ -412,7 +375,11 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                       scale: _isHovered ? 1.05 : 1.0,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOutCubic,
-                      child: _buildProjectImage(),
+                      child: Image.asset(
+                        widget.project["imageUrl"],
+                        fit: BoxFit.cover,
+                        alignment: imgAlignment,
+                      ),
                     ),
                   ),
                   Positioned.fill(
@@ -493,6 +460,9 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
   }
 
   Widget _buildStandardContent() {
+    final Alignment imgAlignment =
+        widget.project["alignment"] ?? const Alignment(0.0, -0.10);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -507,8 +477,10 @@ class _GlassBentoCardState extends State<_GlassBentoCard> {
                     scale: _isHovered ? 1.05 : 1.0,
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeOutCubic,
-                    child: _buildProjectImage(
-                      alignment: const Alignment(0.0, -0.10),
+                    child: Image.asset(
+                      widget.project["imageUrl"],
+                      fit: BoxFit.cover,
+                      alignment: imgAlignment,
                     ),
                   ),
                 ),
