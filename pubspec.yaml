@@ -34,7 +34,6 @@ flutter:
     - assets/images/project/
 
 
-  # FIX: Indentasi fonts digeser masuk ke dalam scope 'flutter:' biar dibaca framework!
   fonts:
     - family: Inter
       fonts:

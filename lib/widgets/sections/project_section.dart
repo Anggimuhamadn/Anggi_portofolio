@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectSection extends StatefulWidget {
   const ProjectSection({super.key});
@@ -302,16 +303,18 @@ class _GlassBentoCard extends StatefulWidget {
 class _GlassBentoCardState extends State<_GlassBentoCard> {
   bool _isHovered = false;
 
-  void _openLink(String url) {
-    String formattedUrl = url.trim();
+  void _openLink(String urlString) async {
+    String formattedUrl = urlString.trim();
     if (!formattedUrl.startsWith('http://') &&
         !formattedUrl.startsWith('https://') &&
         !formattedUrl.startsWith('mailto:')) {
       formattedUrl = 'https://$formattedUrl';
     }
-    html.AnchorElement anchorElement = html.AnchorElement(href: formattedUrl);
-    anchorElement.target = "_blank";
-    anchorElement.click();
+
+    final Uri url = Uri.parse(formattedUrl);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
   }
 
   // WIDGET IMAGE LOADER PINTAR (Asset vs Network)
