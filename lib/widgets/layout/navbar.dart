@@ -23,7 +23,7 @@ class _NavbarState extends State<Navbar> {
   bool _isResumeHovered = false;
 
   void _downloadResume() async {
-    const String resumeUrl = "assets/CV.AnggiMNfixnew .pdf";
+    const String resumeUrl = "assets/fix.pdf";
     final Uri uri = Uri.parse(resumeUrl);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       debugPrint('Could not launch $resumeUrl');

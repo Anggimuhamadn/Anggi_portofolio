@@ -57,7 +57,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                '⚡ Pesan dari ${_nameController.text} berhasil terkirim ke Gmail!',
+                'Pesan berhasil terkirim',
                 style: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.bold, color: Colors.white),
               ),
               backgroundColor: const Color(0xff00D2FF),
@@ -261,7 +261,7 @@ class _ContactChatSectionState extends State<ContactChatSection> {
                                         border: Border.all(color: Colors.white.withOpacity(0.04)),
                                       ),
                                       child: const Text(
-                                        "Yoo! Senang lu mampir. Silakan isi nama, email, sama detail project atau pesan lu di bawah ya. Let's make something awesome together! 🚀",
+                                        "Yoo! Senang lu mampir. Silakan isi nama, email, sama detail project atau pesan lu di bawah ya. Let's make something awesome together!",
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           color: Colors.white,
